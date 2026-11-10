@@ -6,13 +6,13 @@
 
 ## Group Members & Roles
 
-| Group member                  | Role                                         |
-| ----------------------------- | -------------------------------------------- |
-| **Casuncad, Westlie R.**      | Group Leader / Full Stack Developer          |
-| **Boado, Mark Frederick B.**  | Developer / Documentation and System QA Lead |
-| **Baluyot, Danhil C.**        | Tester                                       |
-| **Cardenas, Mharc Angelo S.** | Tester                                       |
-| **Curtivo, Denmar E.**        | Tester                                       |
+| Group member                 | Role                                                |
+| ---------------------------- | --------------------------------------------------- |
+| **Casuncad, Westlie R.**      | Group Leader / Full Stack Developer                  |
+| **Boado, Mark Frederick B.**  | Developer / Documentation and System QA Lead          |
+| **Baluyot, Danhil C.**        | Tester / Quality Assurance / System Documentation    |
+| **Cardenas, Mharc Angelo S.** | Tester / Quality Assurance / System Documentation    |
+| **Curtivo, Denmar E.**        | Tester / Quality Assurance / System Documentation    |
 
 ---
 

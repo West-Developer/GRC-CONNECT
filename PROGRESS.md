@@ -18,3 +18,8 @@
 - User renewed the commit/push instruction. Authenticated GitHub access as West-Developer is available and the push dry-run to origin/main succeeded.
 - Rechecked the complete export against the current workspace: no changed or missing application source files. README title, five group members/roles, target clone URL and omission of IT Control details passed verification. Previously successful README formatting and frontend TypeScript checks apply to this unchanged source.
 - Publishing the reviewed clean source on main using the requested work email. Private logs, credentials, dumps, raw rosters and personal attachments remain excluded. Full application suites were not rerun for this publication task.
+
+## 2026-11-11 — Group-role documentation correction
+
+- User requested and authorized publication of the README role correction. Baluyot, Danhil C.; Cardenas, Mharc Angelo S.; and Curtivo, Denmar E. each now have the role Tester / Quality Assurance / System Documentation.
+- Verified exactly three role updates and no README changes outside the group-members table. IT Control details remain omitted. This is documentation only; application tests are not applicable. Scoped whitespace validation is required before commit.
