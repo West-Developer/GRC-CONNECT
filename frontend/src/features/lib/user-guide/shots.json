@@ -1,0 +1,1277 @@
+{
+  "account-setup": {
+    "src": "/user-guide/account-setup.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Set up your account page with email, setup code and password fields."
+  },
+  "accounting-advance-payment": {
+    "src": "/user-guide/accounting-advance-payment.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Advance Payment page as a Accounting Staff sees it."
+  },
+  "accounting-confirm-payment": {
+    "src": "/user-guide/accounting-confirm-payment.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Confirm received payment window with the Pay in full and Installment choices, the amount, the assessment summary and the Confirm payment button.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 35.94,
+        "y": 33.23,
+        "w": 14.06,
+        "h": 5
+      },
+      {
+        "n": 2,
+        "x": 50,
+        "y": 33.23,
+        "w": 14.06,
+        "h": 5
+      },
+      {
+        "n": 3,
+        "x": 35.94,
+        "y": 43.14,
+        "w": 28.13,
+        "h": 5
+      },
+      {
+        "n": 4,
+        "x": 44.28,
+        "y": 77.77,
+        "w": 8.79,
+        "h": 5
+      },
+      {
+        "n": 5,
+        "x": 53.07,
+        "y": 77.77,
+        "w": 10.99,
+        "h": 5
+      }
+    ]
+  },
+  "accounting-cor-records": {
+    "src": "/user-guide/accounting-cor-records.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The COR Records page as a Accounting Staff sees it."
+  },
+  "accounting-enrollment-dashboard": {
+    "src": "/user-guide/accounting-enrollment-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Dashboard page as a Accounting Staff sees it."
+  },
+  "accounting-fee-settings": {
+    "src": "/user-guide/accounting-fee-settings.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Fee Settings page as a Accounting Staff sees it."
+  },
+  "accounting-find-student": {
+    "src": "/user-guide/accounting-find-student.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Find student box with a matching student and the Issue queue ticket button.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 26.98,
+        "y": 50.27,
+        "w": 60.19,
+        "h": 5.25
+      },
+      {
+        "n": 2,
+        "x": 87.41,
+        "y": 50.39,
+        "w": 8.65,
+        "h": 5
+      },
+      {
+        "n": 3,
+        "x": 83.46,
+        "y": 58.27,
+        "w": 11.58,
+        "h": 5
+      }
+    ]
+  },
+  "accounting-now-serving": {
+    "src": "/user-guide/accounting-now-serving.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Now serving card for the student at the counter, with the assessment particulars."
+  },
+  "accounting-payment-classification": {
+    "src": "/user-guide/accounting-payment-classification.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The payment classification step, where the Cashier chooses Regular payee or Scholar.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 33.28,
+        "y": 40.69,
+        "w": 33.44,
+        "h": 9.5
+      },
+      {
+        "n": 2,
+        "x": 33.28,
+        "y": 49.69,
+        "w": 33.44,
+        "h": 11.5
+      },
+      {
+        "n": 3,
+        "x": 59.71,
+        "y": 64.06,
+        "w": 6.85,
+        "h": 5
+      }
+    ]
+  },
+  "accounting-payment-queue": {
+    "src": "/user-guide/accounting-payment-queue.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Payment Queue page as a Accounting Staff sees it."
+  },
+  "accounting-payment-records": {
+    "src": "/user-guide/accounting-payment-records.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Transaction History page as a Accounting Staff sees it."
+  },
+  "accounting-queue-kiosk-access": {
+    "src": "/user-guide/accounting-queue-kiosk-access.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Queue Kiosk Access page as a Accounting Staff sees it."
+  },
+  "accounting-serving-actions": {
+    "src": "/user-guide/accounting-serving-actions.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The buttons under the assessment: Confirm payment, Preview COR, Announce ticket and Skip.",
+    "marks": [
+      {
+        "n": 2,
+        "x": 46.84,
+        "y": 47.47,
+        "w": 12.22,
+        "h": 5
+      },
+      {
+        "n": 3,
+        "x": 59.06,
+        "y": 47.47,
+        "w": 4.54,
+        "h": 5
+      },
+      {
+        "n": 5,
+        "x": 38.06,
+        "y": 47.47,
+        "w": 8.79,
+        "h": 5
+      },
+      {
+        "n": 6,
+        "x": 27.06,
+        "y": 47.47,
+        "w": 10.99,
+        "h": 5
+      }
+    ]
+  },
+  "accounting-statement-of-account": {
+    "src": "/user-guide/accounting-statement-of-account.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Statement of Account page as a Accounting Staff sees it."
+  },
+  "admission-account-created": {
+    "src": "/user-guide/admission-account-created.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The page after saving a freshman, with the account setup delivery panel showing the queue number was issued."
+  },
+  "admission-change-requests": {
+    "src": "/user-guide/admission-change-requests.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Change Requests tab with a student's request waiting for a decision."
+  },
+  "admission-create-account-filled": {
+    "src": "/user-guide/admission-create-account-filled.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Create a student account form filled in for a freshman, from first name to address."
+  },
+  "admission-create-account-type": {
+    "src": "/user-guide/admission-create-account-type.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The lower part of the form: student number, program, year level and student type, with the Save student and issue queue number button."
+  },
+  "admission-enrollment-dashboard": {
+    "src": "/user-guide/admission-enrollment-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Dashboard page as a Admission Staff sees it."
+  },
+  "admission-freshmen": {
+    "src": "/user-guide/admission-freshmen.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Freshmen tab showing each freshman's queue number and whether the Cashier has confirmed the first payment."
+  },
+  "admission-student-directory": {
+    "src": "/user-guide/admission-student-directory.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Student Directory tab with the search box and the matching students.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 26.98,
+        "y": 51.11,
+        "w": 45.75,
+        "h": 5.25
+      },
+      {
+        "n": 2,
+        "x": 72.66,
+        "y": 51.24,
+        "w": 7.53,
+        "h": 5
+      }
+    ]
+  },
+  "admission-student-records": {
+    "src": "/user-guide/admission-student-records.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Student Records page as a Admission Staff sees it."
+  },
+  "chair-check-schedule": {
+    "src": "/user-guide/chair-check-schedule.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The schedule check window for an irregular student, with the chosen subjects and the controls to change them."
+  },
+  "chair-confirm-approve": {
+    "src": "/user-guide/chair-confirm-approve.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The approval window with an optional note for the student, the overload acknowledgement and the Confirm Approval button.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 35.94,
+        "y": 40.58,
+        "w": 28.13,
+        "h": 11
+      },
+      {
+        "n": 2,
+        "x": 36.64,
+        "y": 62.95,
+        "w": 26.72,
+        "h": 6.5
+      },
+      {
+        "n": 3,
+        "x": 52.98,
+        "y": 71.33,
+        "w": 11.08,
+        "h": 5
+      }
+    ]
+  },
+  "chair-credit-mapping-panel": {
+    "src": "/user-guide/chair-credit-mapping-panel.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The side-by-side mapping panel: each of the student's previous subjects beside the GRC subject chosen for it, with Confirm and No equivalent on every row and Submit to Registrar Head below.",
+    "marks": [
+      {
+        "n": 3,
+        "x": 56.27,
+        "y": 74.15,
+        "w": 30.65,
+        "h": 5
+      },
+      {
+        "n": 4,
+        "x": 56.27,
+        "y": 79.15,
+        "w": 5.99,
+        "h": 4.5
+      },
+      {
+        "n": 5,
+        "x": 62.25,
+        "y": 79.15,
+        "w": 8.69,
+        "h": 4.5
+      }
+    ]
+  },
+  "chair-credit-mapping-submit": {
+    "src": "/user-guide/chair-credit-mapping-submit.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The bottom of the mapping panel once every subject is confirmed, with the Submit to Registrar Head button.",
+    "marks": [
+      {
+        "n": 6,
+        "x": 40.26,
+        "y": 59.65,
+        "w": 14.9,
+        "h": 5
+      }
+    ]
+  },
+  "chair-credit-mappings": {
+    "src": "/user-guide/chair-credit-mappings.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Credit Mappings page as a Program Head sees it."
+  },
+  "chair-enrollment-dashboard": {
+    "src": "/user-guide/chair-enrollment-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Dashboard page as a Program Head sees it."
+  },
+  "chair-faculty-invitations": {
+    "src": "/user-guide/chair-faculty-invitations.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Invite Professors page as a Program Head sees it."
+  },
+  "chair-faculty-loading": {
+    "src": "/user-guide/chair-faculty-loading.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Faculty Loading page as a Program Head sees it."
+  },
+  "chair-faculty-workforce": {
+    "src": "/user-guide/chair-faculty-workforce.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Faculty Workforce page as a Program Head sees it."
+  },
+  "chair-irregular-enrollments": {
+    "src": "/user-guide/chair-irregular-enrollments.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Irregular Advising page as a Program Head sees it.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 54.68,
+        "y": 42.62,
+        "w": 9.61,
+        "h": 4.5
+      },
+      {
+        "n": 2,
+        "x": 76.87,
+        "y": 64.81,
+        "w": 9.66,
+        "h": 4.5
+      },
+      {
+        "n": 3,
+        "x": 86.54,
+        "y": 64.81,
+        "w": 7.49,
+        "h": 4.5
+      },
+      {
+        "n": 4,
+        "x": 76.87,
+        "y": 69.31,
+        "w": 6.18,
+        "h": 4.5
+      },
+      {
+        "n": 5,
+        "x": 83.05,
+        "y": 69.31,
+        "w": 5.23,
+        "h": 4.5
+      }
+    ]
+  },
+  "chair-planning-form": {
+    "src": "/user-guide/chair-planning-form.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Program Head Enrollment page while a schedule is being planned, with the Demand Forecast and Generate Schedule buttons and a tab for each year level.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 28.6,
+        "y": 56.6,
+        "w": 10.2,
+        "h": 4
+      },
+      {
+        "n": 2,
+        "x": 27.3,
+        "y": 65.4,
+        "w": 68.4,
+        "h": 3.8
+      },
+      {
+        "n": 3,
+        "x": 39.9,
+        "y": 56.6,
+        "w": 11.1,
+        "h": 4
+      }
+    ]
+  },
+  "chair-program-chair-analytics": {
+    "src": "/user-guide/chair-program-chair-analytics.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Analytics page as a Program Head sees it."
+  },
+  "chair-program-chair-enrollment": {
+    "src": "/user-guide/chair-program-chair-enrollment.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment page as a Program Head sees it."
+  },
+  "chair-rooms": {
+    "src": "/user-guide/chair-rooms.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Rooms page as a Program Head sees it."
+  },
+  "chair-schedule": {
+    "src": "/user-guide/chair-schedule.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Schedule page as a Program Head sees it."
+  },
+  "chair-student-prospectus": {
+    "src": "/user-guide/chair-student-prospectus.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The student's prospectus: every subject of the curriculum with the grade or status of each."
+  },
+  "chair-subjects-prerequisites": {
+    "src": "/user-guide/chair-subjects-prerequisites.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Curriculum Editor page as a Program Head sees it."
+  },
+  "dean-confirm-decision": {
+    "src": "/user-guide/dean-confirm-decision.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Confirm schedule decision window with Cancel and Confirm decision.",
+    "marks": [
+      {
+        "n": 4,
+        "x": 53.3,
+        "y": 53,
+        "w": 10.77,
+        "h": 5
+      }
+    ]
+  },
+  "dean-curriculum-approvals": {
+    "src": "/user-guide/dean-curriculum-approvals.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Curriculum Approvals page as a Dean sees it."
+  },
+  "dean-enrollment-dashboard": {
+    "src": "/user-guide/dean-enrollment-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Dashboard page as a Dean sees it."
+  },
+  "dean-faculty-load-monitoring": {
+    "src": "/user-guide/dean-faculty-load-monitoring.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Faculty Load page as a Dean sees it."
+  },
+  "dean-honors": {
+    "src": "/user-guide/dean-honors.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Honors page as a Dean sees it."
+  },
+  "dean-review-schedule": {
+    "src": "/user-guide/dean-review-schedule.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The schedule review window listing each block section with its subjects and units, and the Approve and Return buttons."
+  },
+  "dean-schedule-approvals": {
+    "src": "/user-guide/dean-schedule-approvals.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment page as a Dean sees it."
+  },
+  "executive-confirm-publish": {
+    "src": "/user-guide/executive-confirm-publish.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Confirm schedule decision window shown before a schedule is published.",
+    "marks": [
+      {
+        "n": 4,
+        "x": 53.3,
+        "y": 53,
+        "w": 10.77,
+        "h": 5
+      }
+    ]
+  },
+  "executive-curriculum-approvals": {
+    "src": "/user-guide/executive-curriculum-approvals.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Curriculum Approvals page as a Executive Director sees it."
+  },
+  "executive-enrollment-dashboard": {
+    "src": "/user-guide/executive-enrollment-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Dashboard page as a Executive Director sees it."
+  },
+  "executive-institution-dashboard": {
+    "src": "/user-guide/executive-institution-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Institution Dashboard page as a Executive Director sees it."
+  },
+  "executive-master-schedule": {
+    "src": "/user-guide/executive-master-schedule.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment page as a Executive Director sees it."
+  },
+  "faculty-availability-preferences": {
+    "src": "/user-guide/faculty-availability-preferences.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Availability Preferences page as a Professor sees it."
+  },
+  "faculty-grade-sheet": {
+    "src": "/user-guide/faculty-grade-sheet.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "A section's grade sheet: one row per enrolled student with the grade and remarks, and the buttons to download the template, upload grades and submit.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 54.4,
+        "y": 30.53,
+        "w": 14.42,
+        "h": 5
+      },
+      {
+        "n": 2,
+        "x": 68.82,
+        "y": 30.53,
+        "w": 16.49,
+        "h": 5
+      },
+      {
+        "n": 3,
+        "x": 78.42,
+        "y": 64.47,
+        "w": 13.77,
+        "h": 5
+      }
+    ]
+  },
+  "faculty-grade-submission": {
+    "src": "/user-guide/faculty-grade-submission.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Grade Submission page as a Professor sees it."
+  },
+  "faculty-professor-information": {
+    "src": "/user-guide/faculty-professor-information.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The My Information page as a Professor sees it."
+  },
+  "faculty-subject-preferences": {
+    "src": "/user-guide/faculty-subject-preferences.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Subject preferences tab, where a professor ranks the subjects they want to teach."
+  },
+  "faculty-teaching-schedule": {
+    "src": "/user-guide/faculty-teaching-schedule.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Teaching Schedule page as a Professor sees it."
+  },
+  "forgot-password": {
+    "src": "/user-guide/forgot-password.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Forgot your password page with an email field and a Send reset code button."
+  },
+  "hero-portal": {
+    "src": "/user-guide/hero-portal.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The GRC Connect home page for a student, with the menu on the left."
+  },
+  "login": {
+    "src": "/user-guide/login.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The GRC Connect sign-in page with the email and password fields.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 52.66,
+        "y": 40.12,
+        "w": 39.69,
+        "h": 5.5
+      },
+      {
+        "n": 2,
+        "x": 52.66,
+        "y": 50.02,
+        "w": 36.5,
+        "h": 5.5
+      },
+      {
+        "n": 3,
+        "x": 52.73,
+        "y": 60.19,
+        "w": 39.53,
+        "h": 5.75
+      }
+    ]
+  },
+  "login-code": {
+    "src": "/user-guide/login-code.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Check your email step, with a field for the 6-digit code.",
+    "marks": [
+      {
+        "n": 4,
+        "x": 52.66,
+        "y": 49.89,
+        "w": 39.69,
+        "h": 5.5
+      }
+    ]
+  },
+  "phone-enrollment": {
+    "src": "/user-guide/phone-enrollment.jpg",
+    "width": 780,
+    "height": 1688,
+    "alt": "A phone showing the Enrollment page with the open section to choose."
+  },
+  "phone-login": {
+    "src": "/user-guide/phone-login.jpg",
+    "width": 780,
+    "height": 1688,
+    "alt": "A phone showing the sign-in page."
+  },
+  "phone-menu": {
+    "src": "/user-guide/phone-menu.jpg",
+    "width": 780,
+    "height": 1688,
+    "alt": "A phone showing the portal menu open."
+  },
+  "portal-home": {
+    "src": "/user-guide/portal-home.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The GRC Connect home page with numbered markers on the menu, the current term, the notification bell and Sign out.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 1.25,
+        "y": 24.21,
+        "w": 20.63,
+        "h": 58.57
+      },
+      {
+        "n": 2,
+        "x": 1.09,
+        "y": 85.53,
+        "w": 20.94,
+        "h": 3.54
+      },
+      {
+        "n": 3,
+        "x": 86.18,
+        "y": 2.81,
+        "w": 2.97,
+        "h": 4.75
+      },
+      {
+        "n": 4,
+        "x": 90.07,
+        "y": 2.81,
+        "w": 7.32,
+        "h": 4.75
+      }
+    ]
+  },
+  "portal-notifications": {
+    "src": "/user-guide/portal-notifications.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The notifications panel opened from the bell, with Mark all as read and Unread only."
+  },
+  "registrar-confirm-approve": {
+    "src": "/user-guide/registrar-confirm-approve.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The confirmation shown before an enrollment is approved."
+  },
+  "registrar-head-academic-terms": {
+    "src": "/user-guide/registrar-head-academic-terms.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment page as a Registrar Head sees it."
+  },
+  "registrar-head-academic-transcripts": {
+    "src": "/user-guide/registrar-head-academic-transcripts.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Academic Transcripts page as a Registrar Head sees it."
+  },
+  "registrar-head-attrition-analytics": {
+    "src": "/user-guide/registrar-head-attrition-analytics.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Attrition Analytics page as a Registrar Head sees it."
+  },
+  "registrar-head-audit-logs": {
+    "src": "/user-guide/registrar-head-audit-logs.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Audit Logs page as a Registrar Head sees it."
+  },
+  "registrar-head-ched-reports": {
+    "src": "/user-guide/registrar-head-ched-reports.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The CHED Reports page as a Registrar Head sees it."
+  },
+  "registrar-head-cor-records": {
+    "src": "/user-guide/registrar-head-cor-records.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The COR Records page as a Registrar Head sees it."
+  },
+  "registrar-head-credit-mappings": {
+    "src": "/user-guide/registrar-head-credit-mappings.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Credit Mappings page as a Registrar Head sees it."
+  },
+  "registrar-head-credit-review": {
+    "src": "/user-guide/registrar-head-credit-review.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The credit review panel: each previous subject beside the subject the Program Head mapped it to, with Return and Reject on every row and Approve all below.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 61.72,
+        "y": 44.02,
+        "w": 5.45,
+        "h": 4.5
+      },
+      {
+        "n": 2,
+        "x": 67.17,
+        "y": 44.02,
+        "w": 5.23,
+        "h": 4.5
+      },
+      {
+        "n": 3,
+        "x": 27.06,
+        "y": 79.15,
+        "w": 9.66,
+        "h": 5
+      }
+    ]
+  },
+  "registrar-head-enrollment-approvals": {
+    "src": "/user-guide/registrar-head-enrollment-approvals.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Approvals page as a Registrar Head sees it."
+  },
+  "registrar-head-enrollment-dashboard": {
+    "src": "/user-guide/registrar-head-enrollment-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Dashboard page as a Registrar Head sees it."
+  },
+  "registrar-head-enrollment-requests": {
+    "src": "/user-guide/registrar-head-enrollment-requests.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Requests page as a Registrar Head sees it."
+  },
+  "registrar-head-faculty-workforce": {
+    "src": "/user-guide/registrar-head-faculty-workforce.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Faculty Workforce page as a Registrar Head sees it."
+  },
+  "registrar-head-grade-approvals": {
+    "src": "/user-guide/registrar-head-grade-approvals.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Grade Approvals page as a Registrar Head sees it."
+  },
+  "registrar-head-graduates": {
+    "src": "/user-guide/registrar-head-graduates.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Graduates page as a Registrar Head sees it."
+  },
+  "registrar-head-payment-discount": {
+    "src": "/user-guide/registrar-head-payment-discount.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Payment Discount page as a Registrar Head sees it."
+  },
+  "registrar-head-registrar-analytics": {
+    "src": "/user-guide/registrar-head-registrar-analytics.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Analytics page as a Registrar Head sees it."
+  },
+  "registrar-head-rooms": {
+    "src": "/user-guide/registrar-head-rooms.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Rooms page as a Registrar Head sees it."
+  },
+  "registrar-head-section-change-requests": {
+    "src": "/user-guide/registrar-head-section-change-requests.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Schedule Change Requests page as a Registrar Head sees it."
+  },
+  "registrar-head-staff-invitations": {
+    "src": "/user-guide/registrar-head-staff-invitations.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Invite Staff page as a Registrar Head sees it."
+  },
+  "registrar-head-start-enrollment": {
+    "src": "/user-guide/registrar-head-start-enrollment.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The enrollment schedule card showing which colleges have published, the enrollment dates, and the Save enrollment schedule and Start enrollment buttons.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 26.91,
+        "y": 58.24,
+        "w": 69.31,
+        "h": 4
+      }
+    ]
+  },
+  "registrar-head-submitted-schedules": {
+    "src": "/user-guide/registrar-head-submitted-schedules.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Submitted Schedules page as a Registrar Head sees it."
+  },
+  "registrar-head-term-created": {
+    "src": "/user-guide/registrar-head-term-created.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment page after the term is created, with the cycle steps and the new term in Draft."
+  },
+  "registrar-head-term-form": {
+    "src": "/user-guide/registrar-head-term-form.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The form that starts a school year and semester, with the school year, semester and enrollment dates filled in.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 26.91,
+        "y": 71.39,
+        "w": 34.66,
+        "h": 5.5
+      },
+      {
+        "n": 2,
+        "x": 61.56,
+        "y": 71.39,
+        "w": 34.66,
+        "h": 5.5
+      },
+      {
+        "n": 3,
+        "x": 26.91,
+        "y": 81.3,
+        "w": 34.66,
+        "h": 5.5
+      },
+      {
+        "n": 4,
+        "x": 61.56,
+        "y": 81.3,
+        "w": 34.66,
+        "h": 5.5
+      },
+      {
+        "n": 5,
+        "x": 26.91,
+        "y": 90.21,
+        "w": 34.66,
+        "h": 5.5
+      },
+      {
+        "n": 6,
+        "x": 26.98,
+        "y": 96.83,
+        "w": 69.16,
+        "h": 3.17
+      }
+    ]
+  },
+  "registrar-reject-enrollment": {
+    "src": "/user-guide/registrar-reject-enrollment.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The reject window, where the Registrar writes the reason before rejecting the enrollment."
+  },
+  "registrar-review-enrollment": {
+    "src": "/user-guide/registrar-review-enrollment.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The review window with the student, the academic load, the unit overload check, the timetable conflict check and the selected subjects."
+  },
+  "registrar-staff-cor-records": {
+    "src": "/user-guide/registrar-staff-cor-records.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The COR Records page as a Registrar Staff sees it."
+  },
+  "registrar-staff-credit-mappings": {
+    "src": "/user-guide/registrar-staff-credit-mappings.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Credit Mappings page as a Registrar Staff sees it."
+  },
+  "registrar-staff-enrollment-approvals": {
+    "src": "/user-guide/registrar-staff-enrollment-approvals.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Approvals page as a Registrar Staff sees it.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 46.46,
+        "y": 42.12,
+        "w": 9.35,
+        "h": 4.5
+      },
+      {
+        "n": 2,
+        "x": 76.98,
+        "y": 59.68,
+        "w": 5.66,
+        "h": 4.5
+      },
+      {
+        "n": 3,
+        "x": 82.64,
+        "y": 59.68,
+        "w": 6.18,
+        "h": 4.5
+      },
+      {
+        "n": 4,
+        "x": 88.82,
+        "y": 59.68,
+        "w": 5.23,
+        "h": 4.5
+      }
+    ]
+  },
+  "registrar-staff-enrollment-dashboard": {
+    "src": "/user-guide/registrar-staff-enrollment-dashboard.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Dashboard page as a Registrar Staff sees it."
+  },
+  "registrar-staff-enrollment-requests": {
+    "src": "/user-guide/registrar-staff-enrollment-requests.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment Requests page as a Registrar Staff sees it."
+  },
+  "registrar-staff-graduates": {
+    "src": "/user-guide/registrar-staff-graduates.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Graduates page as a Registrar Staff sees it."
+  },
+  "student-admission-requirements": {
+    "src": "/user-guide/student-admission-requirements.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Admission page as a Student sees it."
+  },
+  "student-change-request-form": {
+    "src": "/user-guide/student-change-request-form.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Request an information change form with a proposed address, the reason and the Submit change request button.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 26.98,
+        "y": 47.99,
+        "w": 69.16,
+        "h": 11.25
+      },
+      {
+        "n": 2,
+        "x": 26.98,
+        "y": 63.39,
+        "w": 69.16,
+        "h": 11.25
+      },
+      {
+        "n": 3,
+        "x": 27.06,
+        "y": 79.14,
+        "w": 13.91,
+        "h": 5
+      }
+    ]
+  },
+  "student-confirm-submit": {
+    "src": "/user-guide/student-confirm-submit.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The confirmation window before the enrollment is sent."
+  },
+  "student-credit-mapping-form": {
+    "src": "/user-guide/student-credit-mapping-form.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Transferee Credit Mapping window: the TOR upload and the fields for one previous subject, with Add Subject to My List.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 25.7,
+        "y": 29.63,
+        "w": 9.8,
+        "h": 4.5
+      },
+      {
+        "n": 2,
+        "x": 24.61,
+        "y": 69.19,
+        "w": 50.78,
+        "h": 5.25
+      },
+      {
+        "n": 3,
+        "x": 24.69,
+        "y": 94.13,
+        "w": 13.43,
+        "h": 5
+      }
+    ]
+  },
+  "student-credit-mapping-list": {
+    "src": "/user-guide/student-credit-mapping-list.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The credit mapping window with three subjects listed and the button that sends the list to the Program Head."
+  },
+  "student-digital-com": {
+    "src": "/user-guide/student-digital-com.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Certificate of Registration page as a Student sees it."
+  },
+  "student-enrollment": {
+    "src": "/user-guide/student-enrollment.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment page as a Student sees it."
+  },
+  "student-enrollment-open": {
+    "src": "/user-guide/student-enrollment-open.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Select your section page: the progress steps, the enrollment-open message, and the available section with its Choose button.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 28.08,
+        "y": 42.99,
+        "w": 68.85,
+        "h": 5
+      },
+      {
+        "n": 2,
+        "x": 28.39,
+        "y": 92.07,
+        "w": 27.97,
+        "h": 5
+      }
+    ]
+  },
+  "student-enrollment-submitted": {
+    "src": "/user-guide/student-enrollment-submitted.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Enrollment page after submitting, with the progress steps showing the enrollment is waiting for the Registrar."
+  },
+  "student-grades": {
+    "src": "/user-guide/student-grades.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Grades page as a Student sees it."
+  },
+  "student-irregular-arranged": {
+    "src": "/user-guide/student-irregular-arranged.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "A schedule preset applied: a section chosen for every subject, with the total units shown.",
+    "marks": [
+      {
+        "n": 2,
+        "x": 85.64,
+        "y": 14.49,
+        "w": 9.56,
+        "h": 5
+      },
+      {
+        "n": 4,
+        "x": 79.63,
+        "y": 29.74,
+        "w": 16.75,
+        "h": 4.5
+      }
+    ]
+  },
+  "student-irregular-subjects": {
+    "src": "/user-guide/student-irregular-subjects.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Select your subjects page for an irregular student, with the schedule presets and the list of eligible subjects.",
+    "marks": [
+      {
+        "n": 1,
+        "x": 28.08,
+        "y": 52.49,
+        "w": 68.85,
+        "h": 5
+      },
+      {
+        "n": 2,
+        "x": 56.04,
+        "y": 84.49,
+        "w": 7.34,
+        "h": 5
+      },
+      {
+        "n": 3,
+        "x": 58.85,
+        "y": 91.61,
+        "w": 12.82,
+        "h": 4.5
+      }
+    ]
+  },
+  "student-irregular-submit": {
+    "src": "/user-guide/student-irregular-submit.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The bottom of the subject list with the Submit button for an irregular enrollment.",
+    "marks": [
+      {
+        "n": 5,
+        "x": 84.38,
+        "y": 57.92,
+        "w": 11.68,
+        "h": 5
+      }
+    ]
+  },
+  "student-prospectus": {
+    "src": "/user-guide/student-prospectus.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The prospectus: every subject of the curriculum by year and semester, with the grade or status of each."
+  },
+  "student-schedule": {
+    "src": "/user-guide/student-schedule.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Schedule page as a Student sees it."
+  },
+  "student-section-dialog": {
+    "src": "/user-guide/student-section-dialog.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The section window listing every subject of the block with its day, time and room, with Submit enrollment at the bottom.",
+    "marks": [
+      {
+        "n": 3,
+        "x": 78.06,
+        "y": 5.5,
+        "w": 11,
+        "h": 4.5
+      },
+      {
+        "n": 4,
+        "x": 77.38,
+        "y": 92.94,
+        "w": 11.68,
+        "h": 5
+      }
+    ]
+  },
+  "student-statement-of-account": {
+    "src": "/user-guide/student-statement-of-account.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Statement of Account page as a Student sees it."
+  },
+  "student-student-information": {
+    "src": "/user-guide/student-student-information.jpg",
+    "width": 1280,
+    "height": 800,
+    "alt": "The Student Information page as a Student sees it."
+  }
+}

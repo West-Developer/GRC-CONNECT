@@ -1,0 +1,21 @@
+# Production build (Dokploy / Nixpacks). Nixpacks pins an old nixpkgs snapshot by default, which
+# ships PHP 8.2.27 (affected by CVE-2026-109618 / CVE-2026-109619, the Hostinger "php2shell"
+# advisory). This revision of nixos-unstable-small has php83 8.3.36, the patched release, and is a
+# Hydra-built channel revision so the binaries come from cache. composer.json requires ^8.3 so
+# Nixpacks picks php83. To move to a newer PHP later, bump the revision from
+# https://channels.nixos.org/nixos-unstable-small/git-revision and check
+# pkgs/development/interpreters/php/default.nix at that revision.
+[phases.setup]
+nixpkgsArchive = "dce1caf58d1a943af38b376e824a0d036ec3eea7"
+# Explicit package list (no "..."): Nixpacks' default adds nodejs_18 and npm-9_x, which this newer
+# nixpkgs no longer has. Node is only needed to run /assets/scripts/prestart.mjs at start-up; there
+# is no package.json here, so npm is not installed. Keep the extension list in step with the
+# "ext-*" entries in composer.json (today only bcmath).
+nixPkgs = [
+  "(php83.withExtensions (pe: pe.enabled ++ [pe.all.bcmath]))",
+  "nginx",
+  "libmysqlclient",
+  "php83Packages.composer",
+  "php83Extensions.bcmath",
+  "nodejs_22",
+]

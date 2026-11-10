@@ -1,0 +1,84 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+[Dd]esktop.ini
+.idea/
+.vscode/
+*.swp
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Backend
+/backend/vendor/
+/backend/node_modules/
+/backend/public/build/
+/backend/storage/*.key
+/backend/storage/framework/cache/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/testing/*
+/backend/storage/framework/views/*
+/backend/storage/logs/*
+!/backend/storage/framework/cache/.gitignore
+!/backend/storage/framework/sessions/.gitignore
+!/backend/storage/framework/testing/.gitignore
+!/backend/storage/framework/views/.gitignore
+!/backend/storage/logs/.gitignore
+/backend/.phpunit.cache/
+/backend/.phpunit.result.cache
+
+# Frontend and end-to-end tests
+/node_modules/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/coverage/
+/frontend/playwright-report/
+/frontend/test-results/
+/e2e/node_modules/
+/e2e/playwright-report/
+/e2e/test-results/
+
+# Python prediction service
+/ml-service/.venv/
+/ml-service/.python-version
+/ml-service/__pycache__/
+/ml-service/**/__pycache__/
+/ml-service/.pytest_cache/
+/ml-service/.coverage
+/ml-service/htmlcov/
+/ml-service/models/*
+!/ml-service/models/.gitkeep
+*.py[cod]
+
+# Generated reports and local artifacts
+/artifacts/
+/coverage/
+*.log
+/.playwright-mcp/
+/.superpowers/
+/frontend/test-output.txt
+*.sql
+*.sql.gz
+
+/backend/database/backups/
+/database_backups/
+/frontend/scripts/*.json
+CLAUDE_PROMPT.md
+CLAUDE_HANDOFF.md
+/scratch/
+
+# Private workstation files and source data excluded from this publication
+/DATABASE/
+/Registrar/
+/Subject And Prerequisuite/
+/.claude/
+/**/.claude/
+/.agents/
+/.codex/
+/.aws/
+/PROGRESS.private.md
+/frontend/scripts/inspect_student_cohorts.mjs

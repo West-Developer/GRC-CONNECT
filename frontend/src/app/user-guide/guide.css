@@ -1,0 +1,915 @@
+/*
+ * User Manual and Guide (/user-guide).
+ *
+ * Built from the portal's own tokens (red, gold, paper, Newsreader + IBM Plex
+ * Sans) so it reads as part of GRC Connect. One page, two media: the same
+ * markup is the web page and, printed by `scripts/user-guide/build-pdf.mjs`,
+ * the PDF. Everything under "@media print" is the PDF layout.
+ */
+
+.guide-page {
+  --guide-gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --guide-measure: 44rem;
+  --guide-red: var(--grc-primary);
+  --guide-ink: var(--ink);
+  --guide-soft: #565a60; /* 7:1 on paper; --ink-soft is a touch light for long text */
+  --guide-line: var(--paper-line);
+  --guide-tip: #fbf4dc;
+  --guide-careful: #fbebec;
+  --guide-know: #efede7;
+
+  min-height: 100vh;
+  color: var(--guide-ink);
+  background: var(--background);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.guide-page :where(h1, h2, h3) {
+  margin: 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.guide-page :where(p, ul, ol, dl) {
+  margin: 0;
+}
+
+.guide-page a {
+  text-underline-offset: 0.2rem;
+}
+
+.guide-page code {
+  padding: 0.05rem 0.35rem;
+  background: var(--guide-know);
+  border-radius: 0.25rem;
+  font-family: "IBM Plex Sans Variable", sans-serif;
+  font-size: 0.92em;
+  font-weight: 600;
+}
+
+/* ───────────────────────── print-only cover ───────────────────────── */
+
+.guide-cover,
+.guide-print-only {
+  display: none;
+}
+
+/* ───────────────────────── hero ───────────────────────── */
+
+.guide-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: clamp(2.25rem, 6vw, 4.5rem) var(--guide-gutter);
+}
+
+.guide-hero h1 {
+  font-size: clamp(2.5rem, 5.4vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.guide-hero__lede {
+  max-width: 34rem;
+  margin-top: 1.25rem;
+  color: var(--guide-soft);
+  font-size: 1.125rem;
+}
+
+.guide-hero__edition {
+  margin-top: 0.75rem;
+  color: var(--guide-soft);
+  font-size: 0.9rem;
+}
+
+.guide-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.guide-hero__shot {
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--guide-line);
+  border-radius: 0.65rem;
+  box-shadow: 0 28px 44px -30px rgb(80 20 25 / 45%);
+}
+
+.guide-hero__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ───────────────────────── contents + role chooser ───────────────────────── */
+
+.guide-contents-section {
+  scroll-margin-top: 1rem;
+  background: var(--card);
+  border-block: 1px solid var(--guide-line);
+}
+
+.guide-contents {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3.25rem) var(--guide-gutter);
+}
+
+.guide-contents h2 {
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+}
+
+.guide-contents__hint {
+  max-width: 40rem;
+  margin-top: 0.5rem;
+  color: var(--guide-soft);
+}
+
+.guide-contents__group {
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+  color: var(--guide-soft);
+  font-family: "IBM Plex Sans Variable", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.guide-contents__list {
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--guide-ink);
+}
+
+.guide-contents__row {
+  border-bottom: 1px solid var(--guide-line);
+}
+
+.guide-contents__row > a {
+  display: grid;
+  grid-template-columns: minmax(11rem, 17rem) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.35rem 1.5rem;
+  padding: 1rem 0.5rem;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) ease;
+}
+
+.guide-contents__row > a:hover {
+  background: var(--guide-know);
+}
+
+.guide-contents__row > a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+.guide-contents__title {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.guide-contents__tagline {
+  color: var(--guide-soft);
+}
+
+.guide-contents__count {
+  color: var(--guide-soft);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.guide-contents__row[data-current="true"] > a {
+  padding-left: 1.1rem;
+  background: var(--guide-know);
+  box-shadow: inset 4px 0 0 var(--guide-red);
+}
+
+.guide-contents__row[data-current="true"] .guide-contents__title {
+  color: var(--guide-red);
+}
+
+.guide-contents__topics {
+  display: none;
+  columns: 2 18rem;
+  column-gap: 2.5rem;
+  margin: 0;
+  padding: 0.25rem 0.5rem 1.25rem 1.1rem;
+  list-style: none;
+}
+
+.guide-contents__row[data-expanded="true"] .guide-contents__topics {
+  display: block;
+}
+
+.guide-contents__topics li {
+  break-inside: avoid;
+  padding: 0.18rem 0;
+}
+
+.guide-contents__topics a {
+  color: var(--guide-ink);
+  font-size: 0.95rem;
+}
+
+.guide-contents__topics a:hover {
+  color: var(--guide-red);
+}
+
+/* ───────────────────────── body: rail + chapters ───────────────────────── */
+
+.guide-body {
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3.5rem) var(--guide-gutter) 3rem;
+}
+
+.guide-rail {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.guide-rail > summary {
+  padding: 0.5rem 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.15rem;
+  cursor: default;
+  list-style: none;
+}
+
+.guide-rail > summary::-webkit-details-marker {
+  display: none;
+}
+
+.guide-rail__group + .guide-rail__group {
+  margin-top: 1.1rem;
+}
+
+.guide-rail ol {
+  padding: 0;
+  list-style: none;
+}
+
+.guide-rail a {
+  display: block;
+  padding: 0.28rem 0.7rem;
+  color: var(--guide-soft);
+  text-decoration: none;
+  border-left: 2px solid var(--guide-line);
+  line-height: 1.35;
+}
+
+.guide-rail a:hover {
+  color: var(--guide-ink);
+  border-left-color: var(--guide-soft);
+}
+
+.guide-rail a[aria-current="location"] {
+  color: var(--guide-ink);
+  font-weight: 600;
+  border-left-color: var(--guide-red);
+}
+
+.guide-rail a.guide-rail__chapter {
+  color: var(--guide-ink);
+  font-weight: 600;
+}
+
+.guide-chapters {
+  min-width: 0;
+}
+
+/* ───────────────────────── chapter ───────────────────────── */
+
+.guide-chapter + .guide-chapter {
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+}
+
+.guide-chapter {
+  scroll-margin-top: 1rem;
+}
+
+.guide-chapter__header {
+  max-width: var(--guide-measure);
+  padding-top: 1.25rem;
+  border-top: 4px solid var(--guide-red);
+}
+
+.guide-chapter__header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+}
+
+.guide-chapter__intro {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.guide-chapter__download {
+  margin-top: 1.25rem;
+}
+
+.guide-section {
+  scroll-margin-top: 1rem;
+  margin-top: 2.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--guide-line);
+}
+
+.guide-section > h3 {
+  max-width: var(--guide-measure);
+  margin-bottom: 1rem;
+  font-size: clamp(1.45rem, 2.4vw, 1.8rem);
+  line-height: 1.2;
+}
+
+.guide-section > :where(p, ul, ol, dl, .guide-note) {
+  max-width: var(--guide-measure);
+}
+
+.guide-section > * + * {
+  margin-top: 1rem;
+}
+
+.guide-section > .guide-figure {
+  margin-top: 1.5rem;
+}
+
+.guide-bullets {
+  padding-left: 1.25rem;
+}
+
+.guide-bullets li {
+  padding-left: 0.2rem;
+}
+
+.guide-bullets li + li {
+  margin-top: 0.4rem;
+}
+
+.guide-bullets li::marker {
+  color: var(--guide-red);
+}
+
+/* A numbered sequence of things to do: the one place numbers carry meaning. */
+.guide-steps {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: guide-step;
+}
+
+.guide-steps li {
+  position: relative;
+  display: grid;
+  gap: 0.15rem;
+  min-height: 2rem;
+  padding-left: 3rem;
+  counter-increment: guide-step;
+}
+
+.guide-steps li::before {
+  position: absolute;
+  top: 0.05rem;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: #fff;
+  background: var(--guide-red);
+  border-radius: 50%;
+  content: counter(guide-step);
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* A key to the numbered markers on a picture: the same numbers, tighter. */
+.guide-key {
+  gap: 0.6rem;
+}
+
+.guide-key li {
+  min-height: 1.6rem;
+  padding-left: 2.6rem;
+}
+
+.guide-key li::before {
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 0.9rem;
+}
+
+.guide-steps__detail {
+  color: var(--guide-soft);
+  font-size: 0.95rem;
+}
+
+.guide-note {
+  padding: 0.85rem 1.1rem 0.9rem;
+  background: var(--guide-tip);
+  border-left: 4px solid var(--institutional-gold);
+  border-radius: 0 0.45rem 0.45rem 0;
+}
+
+.guide-note[data-tone="careful"] {
+  background: var(--guide-careful);
+  border-left-color: var(--guide-red);
+}
+
+.guide-note[data-tone="know"] {
+  background: var(--guide-know);
+  border-left-color: #8c9096;
+}
+
+.guide-note strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.guide-note p {
+  margin-top: 0.15rem;
+}
+
+.guide-terms {
+  display: grid;
+  border-top: 1px solid var(--guide-line);
+}
+
+.guide-terms > div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr);
+  gap: 0.25rem 1.5rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--guide-line);
+}
+
+.guide-terms dt {
+  font-weight: 600;
+}
+
+.guide-terms dd {
+  margin: 0;
+}
+
+/* Who does what, in order, from first step to enrolled. */
+.guide-journey {
+  padding: 0;
+  list-style: none;
+  border-left: 2px solid var(--guide-line);
+  margin-left: 0.55rem;
+}
+
+.guide-journey li {
+  position: relative;
+  display: grid;
+  gap: 0.05rem;
+  padding: 0 0 1.1rem 1.5rem;
+}
+
+.guide-journey li:last-child {
+  padding-bottom: 0;
+}
+
+.guide-journey li::before {
+  position: absolute;
+  top: 0.45rem;
+  left: -0.4rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--guide-red);
+  border: 2px solid var(--background);
+  border-radius: 50%;
+  content: "";
+}
+
+.guide-journey strong {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* ───────────────────────── figures ───────────────────────── */
+
+.guide-figure {
+  margin: 0;
+}
+
+.guide-figure__frame {
+  position: relative;
+  border: 1px solid #cfc9bd;
+  border-radius: 0.5rem;
+  background: var(--card);
+}
+
+.guide-figure__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.45rem;
+}
+
+.guide-figure figcaption {
+  max-width: var(--guide-measure);
+  margin-top: 0.6rem;
+  color: var(--guide-soft);
+  font-size: 0.9rem;
+}
+
+.guide-mark {
+  position: absolute;
+  background: rgb(200 16 46 / 8%);
+  border: 2px solid var(--guide-red);
+  border-radius: 0.35rem;
+  pointer-events: none;
+}
+
+.guide-mark__n {
+  position: absolute;
+  top: -0.8rem;
+  left: -0.8rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #fff;
+  background: var(--guide-red);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.guide-phones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.guide-phones img {
+  display: block;
+  width: min(100%, 14rem);
+  height: auto;
+  border: 1px solid #cfc9bd;
+  border-radius: 1.4rem;
+}
+
+/* ───────────────────────── closing links ───────────────────────── */
+
+.guide-prompt,
+.guide-allroles {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 0 var(--guide-gutter);
+}
+
+.guide-prompt {
+  margin-bottom: 1rem;
+  padding-block: 1.25rem;
+  background: var(--guide-know);
+  max-width: none;
+}
+
+.guide-prompt p {
+  max-width: 82rem;
+  margin: 0 auto;
+}
+
+.guide-allroles {
+  padding-bottom: 3.5rem;
+}
+
+/* ───────────────────────── small screens ───────────────────────── */
+
+@media (max-width: 64rem) {
+  .guide-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .guide-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .guide-rail {
+    position: static;
+    max-height: none;
+    padding: 0 0.9rem;
+    background: var(--card);
+    border: 1px solid var(--guide-line);
+    border-radius: 0.5rem;
+  }
+
+  .guide-rail > summary {
+    cursor: pointer;
+  }
+
+  .guide-rail[open] > summary {
+    border-bottom: 1px solid var(--guide-line);
+  }
+
+  .guide-rail > nav {
+    padding: 0.75rem 0 1rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  /* The logo already links home, and the header must not outgrow a phone. */
+  .guide-masthead {
+    gap: 1rem;
+    min-height: 5rem;
+    padding-block: 0.9rem;
+  }
+
+  .guide-masthead .public-masthead__actions > :first-child {
+    display: none;
+  }
+
+  .guide-masthead .grc-brand img {
+    width: 8.5rem;
+  }
+
+  .guide-masthead .grc-brand__system {
+    display: none;
+  }
+
+  .guide-contents__row > a {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .guide-contents__tagline {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .guide-terms > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .guide-hero__actions [data-slot="button"] {
+    flex: 1 1 100%;
+  }
+}
+
+/* ───────────────────────── the PDF ───────────────────────── */
+
+@page {
+  size: A4;
+  margin: 20mm 16mm 22mm;
+
+  @top-left {
+    content: "GRC Enrollment System user manual and guide";
+    color: #62656a;
+    font:
+      8pt "IBM Plex Sans Variable",
+      sans-serif;
+  }
+
+  @bottom-right {
+    content: counter(page);
+    color: #62656a;
+    font:
+      8.5pt "IBM Plex Sans Variable",
+      sans-serif;
+  }
+}
+
+@page :first {
+  margin: 0;
+
+  @top-left {
+    content: none;
+  }
+
+  @bottom-right {
+    content: none;
+  }
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  .guide-page {
+    --guide-gutter: 0;
+    --guide-measure: 100%;
+
+    font-size: 10pt;
+    line-height: 1.55;
+    background: #fff;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .guide-masthead,
+  .guide-hero,
+  .guide-rail,
+  .guide-prompt,
+  .guide-allroles,
+  .guide-chapter__download,
+  .guide-contents__hint,
+  .public-footer,
+  .skip-link {
+    display: none !important;
+  }
+
+  /* Cover: a full red page with the logo, like the front of a handbook. */
+  .guide-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 297mm;
+    padding: 28mm 22mm 30mm;
+    color: #fff;
+    background:
+      radial-gradient(
+        circle at 85% 0%,
+        rgb(255 255 255 / 16%),
+        transparent 120mm
+      ),
+      linear-gradient(160deg, #5b0009, var(--grc-primary) 60%, #8e0619);
+    break-after: page;
+  }
+
+  .guide-cover img {
+    width: 62mm;
+    height: auto;
+    margin-bottom: auto;
+  }
+
+  .guide-cover p {
+    margin: 0;
+  }
+
+  .guide-cover__title {
+    max-width: 150mm;
+    font-family: "Newsreader Variable", Georgia, serif;
+    font-size: 48pt;
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .guide-cover__subtitle {
+    margin-top: 4mm !important;
+    font-family: "Newsreader Variable", Georgia, serif;
+    font-size: 24pt;
+    font-style: italic;
+  }
+
+  .guide-cover__for {
+    max-width: 120mm;
+    margin-top: 12mm !important;
+    font-size: 11pt;
+    opacity: 0.88;
+  }
+
+  .guide-cover__edition {
+    margin-top: 3mm !important;
+    font-size: 10pt;
+    opacity: 0.88;
+  }
+
+  .guide-contents-section {
+    background: #fff;
+    border: 0;
+    break-after: page;
+  }
+
+  .guide-contents {
+    padding: 0;
+  }
+
+  .guide-contents h2 {
+    font-size: 24pt;
+  }
+
+  .guide-contents__row > a {
+    grid-template-columns: 44mm minmax(0, 1fr) auto;
+    padding: 2.4mm 0;
+  }
+
+  .guide-contents__title {
+    font-size: 14pt;
+  }
+
+  .guide-contents__row[data-current="true"] > a {
+    padding-left: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .guide-contents__row[data-current="true"] .guide-contents__title {
+    color: inherit;
+  }
+
+  /* The PDF's contents list only the chapters the PDF contains, each with
+     its topics. */
+  .guide-contents__row:not([data-included="true"]),
+  .guide-contents__group[data-role-group]:has(
+      + .guide-contents__list:not(:has([data-included="true"]))
+    ) {
+    display: none;
+  }
+
+  .guide-screen-only {
+    display: none;
+  }
+
+  .guide-print-only {
+    display: inline;
+  }
+
+  .guide-contents__topics {
+    display: block;
+    columns: 2;
+    padding: 0 0 3mm 4mm;
+  }
+
+  .guide-contents__topics a {
+    font-size: 8.5pt;
+    text-decoration: none;
+  }
+
+  .guide-body {
+    display: block;
+    padding: 0;
+  }
+
+  .guide-chapter {
+    break-before: page;
+  }
+
+  .guide-chapter + .guide-chapter {
+    margin-top: 0;
+  }
+
+  .guide-chapter__header {
+    padding-top: 4mm;
+  }
+
+  .guide-chapter__header h2 {
+    font-size: 28pt;
+  }
+
+  .guide-chapter__intro {
+    font-size: 11pt;
+  }
+
+  .guide-section {
+    margin-top: 8mm;
+    padding-top: 5mm;
+  }
+
+  .guide-section > h3 {
+    font-size: 16pt;
+    break-after: avoid;
+  }
+
+  .guide-section > * {
+    max-width: none !important;
+  }
+
+  .guide-figure,
+  .guide-steps li,
+  .guide-note,
+  .guide-terms > div,
+  .guide-journey li {
+    break-inside: avoid;
+  }
+
+  .guide-figure figcaption {
+    font-size: 8.5pt;
+  }
+
+  .guide-phones img {
+    width: 40mm;
+  }
+}

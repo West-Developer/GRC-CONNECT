@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+use Illuminate\Foundation\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+
+define('LARAVEL_START', microtime(true));
+
+// A command run as root on the server (migrate, config:cache, a manual probe) must not leave
+// cache/log folders the web worker cannot write: PHP-FPM runs as `nobody`, and a root-made 0755
+// folder under storage/framework/cache made every request whose rate-limit key hashed into it a 500.
+umask(0);
+
+// Register the Composer autoloader...
+require __DIR__.'/vendor/autoload.php';
+
+// Bootstrap Laravel and handle the command...
+/** @var Application $app */
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+$status = $app->handleCommand(new ArgvInput);
+
+exit($status);

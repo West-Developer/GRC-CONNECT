@@ -1,0 +1,32 @@
+[project]
+name = "grc-prediction-service"
+version = "0.1.0"
+description = "Private prediction service for the GRC Automated Enrollment System"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "fastapi==0.140.0",
+    "pandas==3.0.5",
+    "scikit-learn==1.9.0",
+    "uvicorn[standard]==0.51.0",
+    "xgboost==3.3.0",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["pandas.*", "sklearn.*", "xgboost.*"]
+ignore_missing_imports = true

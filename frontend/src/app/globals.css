@@ -1,0 +1,4368 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource-variable/newsreader";
+@import "@fontsource-variable/newsreader/wght-italic.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@custom-variant data-horizontal {
+  &:where([data-orientation="horizontal"]) {
+    @slot;
+  }
+}
+
+@custom-variant data-vertical {
+  &:where([data-orientation="vertical"]) {
+    @slot;
+  }
+}
+
+/* Radix sets `data-state="active"|"inactive"`, not a bare `data-active`
+   attribute, so Tailwind's built-in `data-active:` variant (which matches
+   `[data-active]`) never matched — the active Tabs trigger never got its
+   highlight. */
+@custom-variant data-active {
+  &:where([data-state="active"]) {
+    @slot;
+  }
+}
+
+@theme inline {
+  --font-heading: "Newsreader Variable", Georgia, serif;
+  --font-sans: "IBM Plex Sans Variable", sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-institutional-gold: var(--institutional-gold);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --grc-primary: #c8102e;
+  --institutional-gold: #d4af37;
+  --paper: #f4f1ea;
+  --paper-line: #ded8cc;
+  --ink: #202124;
+  --ink-soft: #62656a;
+  --background: #f7f5f0;
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--grc-primary);
+  --primary-foreground: #ffffff;
+  --secondary: #eeeae2;
+  --secondary-foreground: #27282b;
+  --muted: #f1eee8;
+  --muted-foreground: #64676c;
+  --accent: #f5edd2;
+  --accent-foreground: #493a08;
+  --destructive: #72182a;
+  --success: #1f7a4d;
+  --warning: #96591a;
+  --border: #d9d4cb;
+  --input: #cbc5ba;
+  --ring: var(--grc-primary);
+  --chart-1: var(--grc-primary);
+  --chart-2: var(--institutional-gold);
+  --chart-3: #52565d;
+  --chart-4: #8c9096;
+  --chart-5: #d8d2c5;
+  /* Categorical series palette for real multi-series charts (recharts, etc.) —
+     distinct from --chart-1..5 above, which are unused shadcn scaffolding in
+     the institutional red/gold brand hues and were never validated for
+     colorblind-safe adjacent-series separation. Values are the dataviz
+     skill's validated reference palette (see the `dataviz` skill's
+     references/palette.md): fixed hue order, CVD ΔE >= 8 and normal-vision
+     ΔE >= 15 on every adjacent pair, in both light and dark. */
+  --dataviz-series-1: #2a78d6;
+  --dataviz-series-2: #eb6834;
+  --dataviz-series-3: #1baf7a;
+  --dataviz-series-4: #eda100;
+  --dataviz-series-5: #e87ba4;
+  --dataviz-series-6: #008300;
+  --dataviz-series-7: #4a3aa7;
+  --dataviz-series-8: #e34948;
+  --dataviz-grid: #e1e0d9;
+  --dataviz-axis: #c3c2b7;
+  /* Ordinal ramp for the enrollment funnel (stage position, not series
+     identity — dataviz skill's "funnel stage" example): one hue off
+     --dataviz-series-1, monotone lightness light->dark, validated via
+     `node scripts/validate_palette.js "…" --ordinal --mode light
+     --surface "#ffffff"` (Lightness monotone / Adjacent ΔL / Light-end
+     contrast 2.18:1 / Single hue 4° — all PASS). Stage 1 (earliest, most
+     rows) is lightest; stage 4 (enrolled) is darkest. */
+  --dataviz-funnel-1: #82b3ee;
+  --dataviz-funnel-2: #5296e4;
+  --dataviz-funnel-3: #2d74d1;
+  --dataviz-funnel-4: #153f78;
+  --radius: 0.45rem;
+  --sidebar: #fbfaf7;
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--grc-primary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5edd2;
+  --sidebar-accent-foreground: #493a08;
+  --sidebar-border: #d9d4cb;
+  --sidebar-ring: var(--grc-primary);
+  /* Seeded from values already in use (ledger-enter's curve/duration, the
+     Sheet transition, and the de facto Tailwind-default hover speed) rather
+     than invented — see ADR 0015. Motion on this page (globals.css `.reveal`
+     and the `motion` library wrapper in `portal/motion.tsx`) reads from
+     these instead of repeating literals. */
+  --ease-house: cubic-bezier(0.2, 0.75, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 650ms;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "IBM Plex Sans Variable", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  --background: #171719;
+  --foreground: #f7f5f0;
+  --card: #222225;
+  --card-foreground: #f7f5f0;
+  --popover: #222225;
+  --popover-foreground: #f7f5f0;
+  --primary: #ef4763;
+  --primary-foreground: #1b090d;
+  --secondary: #303034;
+  --secondary-foreground: #f7f5f0;
+  --muted: #2b2b2f;
+  --muted-foreground: #b9b9bd;
+  --accent: #3d351c;
+  --accent-foreground: #f8e9ad;
+  --destructive: #ff7a8e;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --border: #3d3d42;
+  --input: #4a4a50;
+  --ring: #ef4763;
+  --sidebar: #1d1d20;
+  --sidebar-foreground: #f7f5f0;
+  --sidebar-primary: #ef4763;
+  --sidebar-primary-foreground: #1b090d;
+  --sidebar-accent: #3d351c;
+  --sidebar-accent-foreground: #f8e9ad;
+  --sidebar-border: #3d3d42;
+  --sidebar-ring: #ef4763;
+  --dataviz-series-1: #3987e5;
+  --dataviz-series-2: #d95926;
+  --dataviz-series-3: #199e70;
+  --dataviz-series-4: #c98500;
+  --dataviz-series-5: #d55181;
+  --dataviz-series-6: #008300;
+  --dataviz-series-7: #9085e9;
+  --dataviz-series-8: #e66767;
+  --dataviz-grid: #2c2c2a;
+  --dataviz-axis: #383835;
+  /* Anchor flipped for the dark surface (sequential/ordinal ramps flip
+     anchor in dark — brighter reads as "further along" against a dark
+     card): stage 1 darkest, stage 4 lightest. Validated via
+     `--ordinal --mode dark --surface "#222225"` (Light-end contrast
+     2.98:1 on the recessive #3d6cad step — all PASS). */
+  --dataviz-funnel-1: #3d6cad;
+  --dataviz-funnel-2: #4d84cc;
+  --dataviz-funnel-3: #5f9ce8;
+  --dataviz-funnel-4: #a9cdf5;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply font-sans;
+    min-width: 20rem;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-width: 20rem;
+    min-height: 100svh;
+    margin: 0;
+    background-image:
+      linear-gradient(
+        90deg,
+        transparent 0,
+        transparent calc(100% - 1px),
+        color-mix(in srgb, var(--paper-line) 45%, transparent) calc(100% - 1px)
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 31px,
+        color-mix(in srgb, var(--paper-line) 32%, transparent) 32px
+      );
+    background-size:
+      min(8vw, 7rem) 100%,
+      100% 32px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    color: var(--primary-foreground);
+    background: var(--primary);
+  }
+}
+
+#root {
+  min-height: 100svh;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 20;
+  padding: 0.65rem 0.9rem;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 650;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.institutional-shell {
+  width: min(100%, 96rem);
+  min-height: 100svh;
+  margin-inline: auto;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 88% 8%,
+      color-mix(in srgb, var(--institutional-gold) 10%, transparent),
+      transparent 22rem
+    ),
+    color-mix(in srgb, var(--background) 94%, white);
+  border-inline: 1px solid var(--border);
+  box-shadow: 0 0 4rem color-mix(in srgb, var(--ink) 9%, transparent);
+}
+
+.site-masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 6.5rem;
+  padding: 1.25rem clamp(1.25rem, 4vw, 4.5rem);
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+}
+
+.institutional-identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.grc-monogram {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-radius: 0.3rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 680;
+  letter-spacing: -0.03em;
+}
+
+.grc-monogram::after {
+  position: absolute;
+  top: -0.3rem;
+  right: -0.3rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--institutional-gold);
+  border: 2px solid var(--card);
+  border-radius: 0.12rem;
+  content: "";
+}
+
+.institution-name,
+.system-name {
+  margin: 0;
+}
+
+.institution-name {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 620;
+  line-height: 1.05;
+}
+
+.system-name {
+  margin-top: 0.3rem;
+  color: var(--muted-foreground);
+  font-size: 0.7rem;
+  font-weight: 620;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eyebrow svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.hero-status {
+  max-width: 19rem;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.boundary-section {
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 6vw, 6.5rem);
+  background: color-mix(in srgb, var(--card) 74%, transparent);
+  border-block: 1px solid var(--border);
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+  align-items: end;
+  gap: 3rem;
+  margin-bottom: 2.4rem;
+}
+
+.section-heading h2 {
+  margin: 0.7rem 0 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(2.25rem, 4.2vw, 4rem);
+  font-weight: 480;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.section-heading > p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.boundary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.boundary-card__marker {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.7rem;
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+}
+
+.boundary-card__marker svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.boundary-card__copy {
+  margin: 0;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+
+.boundary-card__footer {
+  display: flex;
+  width: 100%;
+  min-height: 1.6rem;
+  align-items: center;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.boundary-card__footer code {
+  color: var(--foreground);
+  font-family: "IBM Plex Sans Variable", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 580;
+}
+
+.health-confirmation {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.health-confirmation svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.health-ledger {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.health-ledger div {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.8rem;
+  padding: 0.65rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.health-ledger dt {
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+  font-weight: 680;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.health-ledger dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.78rem;
+  font-weight: 540;
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem clamp(1.25rem, 4vw, 4.5rem);
+  color: var(--muted-foreground);
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.public-masthead {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) auto auto;
+  min-height: 5.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.public-masthead .institutional-identity {
+  color: inherit;
+  text-decoration: none;
+}
+
+.public-masthead .institution-name,
+.public-masthead .system-name {
+  display: block;
+}
+
+.public-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.public-navigation a {
+  color: var(--muted-foreground);
+  font-size: 0.78rem;
+  font-weight: 620;
+  text-decoration: none;
+}
+
+.public-navigation a:hover {
+  color: var(--foreground);
+}
+
+.landing-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 0.65fr);
+  align-items: center;
+  gap: clamp(3rem, 7vw, 7rem);
+  min-height: 42rem;
+  padding: clamp(4.5rem, 9vw, 8.5rem) clamp(1.25rem, 6vw, 6.5rem);
+}
+
+.landing-hero::before {
+  position: absolute;
+  top: clamp(3rem, 7vw, 6rem);
+  left: clamp(1.25rem, 3vw, 3rem);
+  width: 0.28rem;
+  height: clamp(6rem, 14vw, 11rem);
+  background: var(--primary);
+  content: "";
+}
+
+.landing-hero__copy {
+  max-width: 55rem;
+}
+
+.landing-hero h1 {
+  max-width: 13ch;
+  margin: 1.3rem 0 1.6rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(3.8rem, 7.6vw, 7.25rem);
+  font-weight: 465;
+  letter-spacing: -0.063em;
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+.landing-hero__summary {
+  max-width: 46rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: clamp(1.05rem, 1.7vw, 1.28rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.landing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2.2rem;
+}
+
+.landing-boundary {
+  max-width: 37rem;
+  margin: 1.1rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.enrollment-folio {
+  padding: 1.45rem;
+  color: #fff;
+  background: var(--ink);
+  border-top: 0.3rem solid var(--primary);
+  border-radius: calc(var(--radius) * 1.2);
+  box-shadow: 0.75rem 0.75rem 0
+    color-mix(in srgb, var(--institutional-gold) 34%, transparent);
+}
+
+.enrollment-folio__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.15rem 0.15rem 1rem;
+  color: #caccd0;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.enrollment-folio__header strong {
+  color: var(--institutional-gold);
+  font-weight: 650;
+}
+
+.enrollment-folio ol {
+  margin: 0;
+  padding: 0;
+  border-block: 1px solid color-mix(in srgb, white 16%, transparent);
+  list-style: none;
+}
+
+.enrollment-folio li {
+  display: grid;
+  grid-template-columns: 2rem 1.1rem 1fr;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 4.4rem;
+  border-bottom: 1px solid color-mix(in srgb, white 13%, transparent);
+}
+
+.enrollment-folio li:last-child {
+  border-bottom: 0;
+}
+
+.enrollment-folio li span {
+  color: var(--institutional-gold);
+  font-family: "Newsreader Variable", Georgia, serif;
+}
+
+.enrollment-folio li svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: #caccd0;
+}
+
+.enrollment-folio li strong {
+  font-size: 0.84rem;
+  font-weight: 560;
+  line-height: 1.35;
+}
+
+.enrollment-folio > p {
+  margin: 1rem 0 0;
+  color: #b8bbc0;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.audience-section,
+.journey-section {
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 6vw, 6.5rem);
+}
+
+.audience-section {
+  background: color-mix(in srgb, var(--card) 76%, transparent);
+  border-block: 1px solid var(--border);
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.audience-card {
+  min-height: 18rem;
+}
+
+.audience-card__marker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--primary);
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1rem;
+}
+
+.audience-card__marker svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.audience-card [data-slot="card-title"] {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 520;
+  letter-spacing: -0.025em;
+}
+
+.audience-card [data-slot="card-description"] {
+  line-height: 1.65;
+}
+
+.audience-card [data-slot="card-content"] {
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.journey-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
+  list-style: none;
+}
+
+.journey-list li {
+  min-height: 17rem;
+  padding: 1.5rem;
+  border-right: 1px solid var(--border);
+}
+
+.journey-list li:last-child {
+  border-right: 0;
+}
+
+.journey-list__index {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--primary);
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.05rem;
+}
+
+.journey-list__index svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.journey-list h3 {
+  margin: 4rem 0 0.8rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 520;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+.journey-list p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.public-readiness {
+  scroll-margin-top: 2rem;
+}
+
+.readiness-intro {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.9rem 1rem;
+}
+
+.readiness-intro > p:first-child {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.public-footer {
+  align-items: flex-start;
+  padding-block: 2rem;
+  text-transform: none;
+}
+
+.public-footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.public-footer div:last-child {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.public-footer strong {
+  color: var(--foreground);
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1rem;
+  font-weight: 620;
+}
+
+.login-shell {
+  display: grid;
+  grid-template-columns: minmax(22rem, 0.9fr) minmax(28rem, 1.1fr);
+  min-height: 100svh;
+  background: var(--background);
+}
+
+.login-institutional-panel,
+.login-form-panel {
+  padding: clamp(2rem, 6vw, 6rem);
+}
+
+.login-institutional-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4rem;
+  color: #fff;
+  background: var(--ink);
+  border-top: 0.35rem solid var(--primary);
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+  color: inherit;
+  text-decoration: none;
+}
+
+.login-brand > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.login-brand strong {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 620;
+}
+
+.login-brand small {
+  color: #bfc1c6;
+  font-size: 0.65rem;
+  font-weight: 620;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.login-purpose {
+  max-width: 36rem;
+}
+
+.login-purpose .eyebrow {
+  color: var(--institutional-gold);
+}
+
+.login-purpose h2 {
+  max-width: 11ch;
+  margin: 1rem 0 1.5rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(3.2rem, 6vw, 6rem);
+  font-weight: 450;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+
+/* The sign-in page's headline is the institution's own three-part motto
+   rather than the short editorial line the base rule above is tuned for —
+   its own size/rhythm, scoped so account-setup/forgot-password/reset-password
+   keep their existing (shorter) headline treatment untouched. Uppercase is
+   applied here rather than typed into the copy, so the source content stays
+   normal-case for screen readers. One clause per line mirrors the motto's
+   own three-part structure instead of an arbitrary character-width wrap. */
+.login-purpose h2.login-motto {
+  max-width: none;
+  font-size: clamp(1.85rem, 3.1vw, 2.6rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.login-purpose > p:last-child {
+  max-width: 33rem;
+  margin: 0;
+  color: #c7c9cd;
+  line-height: 1.7;
+}
+
+.login-trust-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 36rem;
+  margin: 0;
+  padding: 0;
+  border-block: 1px solid color-mix(in srgb, white 16%, transparent);
+  list-style: none;
+}
+
+.login-trust-list li {
+  display: grid;
+  grid-template-columns: 1.2rem 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid color-mix(in srgb, white 12%, transparent);
+}
+
+.login-trust-list li:last-child {
+  border-bottom: 0;
+}
+
+.login-trust-list svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.15rem;
+  color: var(--institutional-gold);
+}
+
+.login-trust-list div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.login-trust-list strong {
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.login-trust-list span {
+  color: #afb2b7;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.login-boundary-alert {
+  color: #fff;
+  background: color-mix(in srgb, white 6%, transparent);
+  border-color: color-mix(in srgb, white 20%, transparent);
+}
+
+.login-form-panel {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--card) 82%, transparent);
+}
+
+.login-form-card {
+  display: flex;
+  width: min(100%, 31rem);
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.login-form-card h1 {
+  margin: 0.8rem 0 0.7rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(3rem, 5vw, 4.7rem);
+  font-weight: 470;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+.login-form-intro {
+  margin: 0;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.login-form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.login-forgot-password {
+  /* Sits under the password field, on the right (it used to share the label row). The field makes
+     its children full width, so the text itself is pushed right. */
+  text-align: right;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.login-forgot-password:hover {
+  text-decoration-thickness: 2px;
+}
+
+.login-password-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.55rem;
+}
+
+.login-password-row [data-slot="button"] {
+  height: 2rem;
+}
+
+.login-submit {
+  width: 100%;
+}
+
+.login-error-summary {
+  padding: 1rem 1.1rem;
+  color: var(--destructive);
+  background: color-mix(in srgb, var(--destructive) 7%, var(--card));
+  border: 1px solid color-mix(in srgb, var(--destructive) 35%, var(--border));
+  border-radius: var(--radius);
+}
+
+.login-error-summary:focus {
+  outline: 3px solid color-mix(in srgb, var(--destructive) 30%, transparent);
+  outline-offset: 2px;
+}
+
+.login-error-summary strong {
+  font-size: 0.84rem;
+}
+
+.login-error-summary ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.78rem;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.google-sign-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.google-sign-in-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.google-sign-in-alert {
+  width: 100%;
+}
+
+.login-guide-note {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.8rem;
+  border-block: 1px solid var(--border);
+}
+
+.login-guide-note code {
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+}
+
+.portal-app {
+  display: grid;
+  grid-template-columns: 18.5rem minmax(0, 1fr);
+  min-height: 100svh;
+  background: color-mix(in srgb, var(--background) 94%, white);
+}
+
+.portal-sidebar {
+  position: sticky;
+  top: 0;
+  /* Explicit, not left to DOM-order luck: `position: sticky` alone creates a
+     stacking context, but with no z-index it stacks at `auto`, so a card or
+     any other element in `.portal-main-column` that establishes its own
+     stacking context (its own `position` + a z-index, however small) can
+     still paint over the sidebar — including the collapsed rail's
+     hover-reveal pill, however high *its own* internal z-index is, since a
+     descendant's z-index only ever competes within its own parent's
+     stacking context. Comfortably above the sticky topbar (10); still well
+     below any modal/dialog overlay (50). */
+  z-index: 15;
+  display: flex;
+  height: 100svh;
+  max-height: 100svh;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem 1.25rem;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sidebar) 98%, white),
+    var(--sidebar)
+  );
+  border-right: 1px solid var(--sidebar-border);
+  overflow: hidden;
+}
+
+.portal-sidebar > div:first-child,
+.portal-mobile-sheet__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.portal-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.portal-brand .grc-monogram {
+  width: 2.85rem;
+  height: 2.85rem;
+  font-size: 0.9rem;
+}
+
+.portal-brand > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.portal-brand strong {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 0.98rem;
+  font-weight: 640;
+  line-height: 1.05;
+}
+
+.portal-brand small {
+  color: var(--muted-foreground);
+  font-size: 0.61rem;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.portal-navigation {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 0%;
+  flex-direction: column;
+  gap: 0.3rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.portal-nav-link {
+  display: grid;
+  grid-template-columns: 1.1rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.65rem;
+  padding: 0.65rem 0.75rem;
+  color: var(--muted-foreground);
+  border-left: 0.18rem solid transparent;
+  border-radius: var(--radius);
+  font-size: 0.78rem;
+  font-weight: 580;
+  line-height: 1.25;
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.portal-nav-link:hover {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+/* Previously absent entirely — a keyboard user tabbing through the sidebar
+   had no visible indication of which link was focused (WCAG 2.4.7). Ring
+   values match Button/Input's focus-visible:ring-3 focus-visible:ring-ring/50. */
+.portal-nav-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+}
+
+.portal-nav-link--active {
+  color: var(--foreground);
+  background: var(--sidebar-accent);
+  border-left-color: var(--primary);
+}
+
+.portal-nav-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.portal-sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.portal-sidebar__footer > p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.portal-profile {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.portal-profile > div:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.portal-profile strong {
+  overflow: hidden;
+  font-size: 0.76rem;
+  font-weight: 640;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portal-profile span {
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+}
+
+.portal-main-column {
+  min-width: 0;
+}
+
+.portal-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  min-height: 5.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem clamp(1.25rem, 3vw, 3rem);
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(1rem);
+}
+
+.portal-topbar__context,
+.portal-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.portal-topbar__context > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+}
+
+.portal-topbar__context p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.65rem;
+  font-weight: 640;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.portal-topbar__context strong {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 630;
+}
+
+.portal-topbar__actions [data-orientation="vertical"] {
+  height: 1.7rem;
+}
+
+.portal-mobile-trigger {
+  display: none;
+}
+
+.portal-mobile-sheet {
+  overflow-y: auto;
+}
+
+.portal-mobile-sheet__body {
+  flex: 1;
+  padding: 0 1rem 1rem;
+}
+
+.portal-mobile-sheet__body .portal-navigation {
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+/* Sign out sits at the very bottom of the drawer: pinned while the link list
+   scrolls, and clear of the phone's home indicator. */
+.portal-mobile-sheet__footer {
+  position: sticky;
+  bottom: 0;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem calc(0.85rem + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--primary) 94%, black);
+  border-top: 1px solid rgb(255 255 255 / 18%);
+}
+
+.portal-mobile-signout {
+  width: 100%;
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 12%);
+  border-color: rgb(255 255 255 / 30%);
+}
+
+.portal-mobile-signout:hover {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 20%);
+}
+
+.portal-storage-alert {
+  /* The Alert is `w-full`; with side margins that pushed it past the page and made it scroll sideways. */
+  width: auto;
+  margin: 1rem clamp(1.25rem, 3vw, 3rem) 0;
+  border-color: color-mix(
+    in srgb,
+    var(--institutional-gold) 60%,
+    var(--border)
+  );
+}
+
+.portal-content {
+  width: 100%;
+  min-width: 0;
+  max-width: 92rem;
+  margin-inline: auto;
+  padding: clamp(2rem, 4vw, 4.5rem) clamp(1.25rem, 3vw, 3rem);
+}
+
+/* This is the skip link's target (tabIndex={-1}). Suppressing its outline
+   entirely left a keyboard user with no visible confirmation that the skip
+   link worked — :focus-visible keeps that confirmation for keyboard/skip-link
+   use while still not drawing a ring for an incidental mouse-driven focus. */
+.portal-content:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.portal-overview {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.75rem);
+}
+
+.portal-overview-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 2rem;
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.portal-overview-header h1 {
+  max-width: 17ch;
+  margin: 1rem 0 0.9rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(3rem, 5.5vw, 5.8rem);
+  font-weight: 465;
+  letter-spacing: -0.052em;
+  line-height: 0.91;
+  text-wrap: balance;
+}
+
+.portal-overview-header p {
+  max-width: 47rem;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.portal-overview-header__folio {
+  display: flex;
+  min-width: 8.5rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  padding: 0.8rem 0 0.8rem 1.5rem;
+  border-left: 0.28rem solid var(--institutional-gold);
+}
+
+.portal-overview-header__folio strong {
+  color: var(--primary);
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.portal-overview-header__folio small {
+  color: var(--muted-foreground);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.portal-boundary-alert {
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--accent) 60%, var(--card));
+  border-color: color-mix(
+    in srgb,
+    var(--institutional-gold) 65%,
+    var(--border)
+  );
+}
+
+.portal-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.65fr);
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.portal-section-heading h2 {
+  margin: 0.6rem 0 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 480;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+.portal-section-heading > p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.portal-module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.portal-module-grid--pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.portal-module-card {
+  min-height: 16rem;
+  /* Every module card wraps a link to its workspace, but previously gave no
+     hover affordance at all — flat ring-1, zero feedback (see the Phase 8b
+     design audit). */
+  transition:
+    box-shadow var(--duration-fast) var(--ease-house),
+    transform var(--duration-fast) var(--ease-house);
+}
+
+.portal-module-card:hover {
+  box-shadow: 0 0.35rem 0.85rem color-mix(in srgb, var(--ink) 10%, transparent);
+  transform: translateY(-0.15rem);
+}
+
+.portal-module-card [data-slot="card-header"] {
+  flex: 1;
+  align-content: start;
+}
+
+.portal-module-card [data-slot="card-action"] {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, var(--card));
+  border-radius: 50%;
+}
+
+.portal-module-card [data-slot="card-action"] svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.portal-module-card__index {
+  color: var(--primary);
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 0.82rem;
+}
+
+.portal-module-card [data-slot="card-title"] {
+  margin-top: 2rem;
+  font-size: 1.35rem;
+}
+
+.portal-module-card [data-slot="card-description"] {
+  line-height: 1.6;
+}
+
+.portal-module-card [data-slot="card-footer"] {
+  justify-content: flex-end;
+}
+
+.portal-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.portal-status-grid [data-slot="card-action"] {
+  color: var(--primary);
+}
+
+.portal-status-grid [data-slot="card-content"] p {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 620;
+}
+
+.portal-module-page {
+  display: grid;
+  min-height: calc(100svh - 13rem);
+  place-items: center;
+}
+
+/* Connected workspaces are real, working screens — not a placeholder to
+   center like the "not built yet" states below, which is what the base
+   .portal-module-page rule above was designed for (see ADR 0015). */
+.portal-module-page--connected {
+  display: flex;
+  min-height: auto;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.portal-workspace {
+  width: 100%;
+  min-width: 0;
+  max-width: 76rem;
+  /* The one column is `minmax(0, 1fr)`, not `auto`: an `auto` column grows to its widest child, so a wide
+     table stretched the whole workspace (header, cards and all) past the screen instead of staying in its box. */
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.portal-workspace-header {
+  padding-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.portal-workspace-title {
+  margin: 0.4rem 0 0.5rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+  font-weight: 480;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.portal-workspace-description {
+  max-width: 46rem;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.portal-module-page__return {
+  align-self: flex-start;
+}
+
+/* A restrained, light-background adaptation of the landing page's
+   `.enrollment-folio` idiom (gold offset shadow + red cap rule) — used
+   sparingly to draw attention to one panel among a workspace's light cards
+   (a review/summary panel, a receipt) without the landing page's full
+   ink-inverted treatment, which would look out of place surrounded by
+   ordinary Cards on the paper-textured background. See ADR 0015. */
+.portal-workspace-highlight {
+  border-top: 0.3rem solid var(--primary);
+  box-shadow: 0.5rem 0.5rem 0
+    color-mix(in srgb, var(--institutional-gold) 28%, transparent);
+}
+
+.portal-module-empty {
+  min-height: 31rem;
+  background:
+    radial-gradient(
+      circle at 50% 32%,
+      color-mix(in srgb, var(--institutional-gold) 10%, transparent),
+      transparent 14rem
+    ),
+    color-mix(in srgb, var(--card) 82%, transparent);
+  border: 1px dashed var(--border);
+}
+
+.portal-module-empty [data-slot="empty-header"] {
+  max-width: 39rem;
+}
+
+.portal-module-empty [data-slot="empty-icon"] {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--primary);
+}
+
+.portal-module-empty [data-slot="empty-icon"] svg {
+  width: 1.45rem;
+  height: 1.45rem;
+}
+
+.portal-module-empty [data-slot="empty-title"] {
+  margin-top: 0.75rem;
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  font-weight: 470;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+}
+
+.portal-module-empty [data-slot="empty-description"] {
+  max-width: 38rem;
+  font-size: 0.92rem;
+}
+
+.portal-module-empty [data-slot="empty-content"] {
+  max-width: 33rem;
+}
+
+.portal-module-empty [data-slot="empty-content"] > p {
+  margin: 0;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.portal-module-warning {
+  width: 100%;
+  background: color-mix(in srgb, var(--accent) 55%, var(--card));
+  border-color: color-mix(
+    in srgb,
+    var(--institutional-gold) 60%,
+    var(--border)
+  );
+}
+
+.reveal {
+  animation: ledger-enter 650ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.reveal--one {
+  animation-delay: 60ms;
+}
+
+.reveal--two {
+  animation-delay: 150ms;
+}
+
+.reveal--three {
+  animation-delay: 230ms;
+}
+
+.reveal--four {
+  animation-delay: 310ms;
+}
+
+@keyframes ledger-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 68rem) {
+  .portal-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .login-shell {
+    grid-template-columns: minmax(19rem, 0.8fr) minmax(24rem, 1.2fr);
+  }
+
+  .login-institutional-panel,
+  .login-form-panel {
+    padding: clamp(2rem, 4vw, 4rem);
+  }
+
+  .landing-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .enrollment-folio {
+    width: min(100%, 38rem);
+  }
+
+  .boundary-grid,
+  .audience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .audience-card {
+    min-height: auto;
+  }
+
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .journey-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .journey-list li:nth-child(2) {
+    border-right: 0;
+  }
+
+  .journey-list li:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 64rem) {
+  .portal-app {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-sidebar {
+    display: none;
+  }
+
+  .portal-mobile-trigger {
+    display: inline-flex;
+  }
+
+  /* Sign out moves into the drawer's footer whenever the drawer exists. */
+  .portal-topbar__signout,
+  .portal-topbar__help {
+    display: none;
+  }
+}
+
+@media (max-width: 45rem) {
+  /* One row on a phone: hamburger + breadcrumb on the left, the bell in the
+     spot Sign out used to take on the right. */
+  .portal-topbar {
+    min-height: 3.75rem;
+    gap: 0.75rem;
+    padding-block: 0.6rem;
+  }
+
+  .portal-topbar__context {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .portal-topbar__context nav {
+    min-width: 0;
+  }
+
+  .portal-topbar__context ol {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .portal-topbar__context ol li:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .portal-topbar__actions {
+    flex-shrink: 0;
+  }
+
+  .portal-overview-header,
+  .portal-section-heading,
+  .portal-module-grid,
+  .portal-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-overview-header__folio {
+    display: none;
+  }
+
+  .login-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .login-institutional-panel {
+    gap: 2.5rem;
+  }
+
+  .login-purpose h2 {
+    font-size: clamp(3rem, 14vw, 4.8rem);
+  }
+
+  .login-purpose h2.login-motto {
+    font-size: clamp(1.55rem, 7.5vw, 2.1rem);
+  }
+
+  .login-form-panel {
+    min-height: 100svh;
+  }
+
+  .site-masthead {
+    align-items: flex-start;
+  }
+
+  .public-masthead {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .public-navigation:not(.public-navigation--mobile) {
+    display: none;
+  }
+
+  .landing-hero {
+    min-height: auto;
+    padding-block: 4.5rem;
+  }
+
+  .landing-hero::before {
+    top: 2.5rem;
+    height: 4rem;
+  }
+
+  .landing-hero h1 {
+    font-size: clamp(3.6rem, 17vw, 5.3rem);
+  }
+
+  .landing-actions,
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .journey-list {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-list li,
+  .journey-list li:nth-child(2) {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .journey-list li:last-child {
+    border-bottom: 0;
+  }
+
+  .journey-list h3 {
+    margin-top: 2.5rem;
+  }
+
+  .readiness-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .readiness-intro > p:first-child {
+    grid-column: auto;
+  }
+
+  .public-footer div:last-child {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.program-chair-schedule-cards {
+  display: none;
+}
+
+@media (max-width: 45rem) {
+  .program-chair-schedule-table {
+    display: none;
+  }
+
+  .program-chair-schedule-cards {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.125rem 0;
+  }
+
+  .program-chair-schedule-card [data-slot="card-footer"] {
+    border-top-color: color-mix(in srgb, var(--border) 78%, transparent);
+  }
+}
+
+@media (max-width: 30rem) {
+  .site-masthead {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/**
+ * Print. Two layers:
+ *
+ * 1. Unconditional: hitting Ctrl+P anywhere in the portal hides the chrome
+ *    (sidebar, topbar, skip link, storage alert) so the printed page is
+ *    never just a screenshot of the app shell. A pure improvement on its
+ *    own, independent of anything below.
+ *
+ * 2. Document isolation, gated on `body[data-printing]` (set by
+ *    `usePrintDocument()` immediately before `window.print()` and cleared
+ *    on `afterprint`): `visibility: hidden` on everything, `visible` on the
+ *    `[data-print-region]` subtree only, so a single printable document
+ *    (grade slip, prospectus) is the entire page, with nothing else from
+ *    the surrounding workspace bleeding in. `visibility` rather than
+ *    `display`/`:has()` — an ancestor staying hidden still reserves no
+ *    layout space is not required here since the region is repositioned to
+ *    the page origin below, and `visibility` is what keeps this assertable
+ *    in Vitest (`document.body.dataset.printing` toggling is a plain DOM
+ *    read, no print-media emulation needed to verify the hook itself).
+ */
+.cor-document {
+  display: grid;
+  gap: 1.5rem;
+  color: #151515;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cor-document__page {
+  width: min(100%, 52rem);
+  min-height: 68rem;
+  margin-inline: auto;
+  padding: clamp(1.25rem, 4vw, 2.8rem);
+  background: #fff;
+  border: 1px solid #a7a7a7;
+  box-shadow: 0 0.8rem 2rem rgb(0 0 0 / 10%);
+}
+
+.cor-document__header {
+  display: block !important;
+  padding-bottom: 0.8rem;
+  text-align: center;
+  border-bottom: 2px solid #111;
+}
+
+.cor-document__header p,
+.cor-document__header small,
+.cor-document__header h1,
+.cor-document h2,
+.cor-document h3,
+.cor-document p {
+  margin: 0;
+}
+
+.cor-document__header p {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #111;
+}
+
+.cor-document__header small {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  color: #444;
+}
+
+.cor-document__header h1 {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #000;
+}
+
+.cor-document__header--compact h1 {
+  margin-top: 0.5rem;
+}
+
+.cor-document__facts,
+.cor-document__assessment-grid,
+.cor-document__signatures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.cor-document__facts {
+  margin-block: 1rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.cor-document__facts dl {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.35rem 0.5rem;
+  margin: 0;
+}
+
+.cor-document__facts dt {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #222;
+}
+
+.cor-document__facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #111;
+}
+
+.cor-document table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  font-size: 0.74rem;
+}
+
+.cor-document caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.cor-document th,
+.cor-document td {
+  border: 1px solid #c5c8cc;
+  padding: 0.4rem 0.55rem;
+  vertical-align: middle;
+}
+
+.cor-document th {
+  background: #f1f3f5;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.cor-document th:nth-child(1),
+.cor-document td:nth-child(1),
+.cor-document th:nth-child(3),
+.cor-document td:nth-child(3),
+.cor-document th:nth-child(4),
+.cor-document td:nth-child(4),
+.cor-document th:nth-child(5),
+.cor-document td:nth-child(5) {
+  text-align: center;
+}
+
+.cor-document__total-row {
+  font-weight: 700;
+  background: #f8f9fa;
+}
+
+.cor-document__admission,
+.cor-document__assessment,
+.cor-document__terms {
+  margin-top: 1.1rem;
+}
+
+.cor-document h2 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cor-document__admission {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #d1d5db;
+  background: #fafafa;
+  border-radius: 4px;
+}
+
+.cor-document__admission p {
+  margin-top: 0.35rem;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  text-align: justify;
+  color: #222;
+}
+
+.cor-document__assessment {
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 0.9rem;
+  border-radius: 4px;
+}
+
+.cor-document__assessment h2 {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.cor-document__assessment-grid {
+  margin-top: 0.4rem;
+  font-size: 0.74rem;
+  gap: 1.25rem;
+}
+
+.cor-document h3 {
+  margin-bottom: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.2rem;
+  color: #222;
+}
+
+.cor-document__fee-row,
+.cor-document__fee-total,
+.cor-document__grand-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.18rem 0;
+}
+
+.cor-document__fee-total {
+  margin-top: 0.4rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid #333;
+  font-weight: 700;
+}
+
+.cor-document__grand-total {
+  width: min(100%, 20rem);
+  margin: 0.85rem 0 0 auto;
+  padding: 0.35rem 0;
+  border-top: 2px solid #111;
+  border-bottom: 4px double #111;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.cor-document__reference {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.1rem;
+  padding: 0.65rem 0.8rem;
+  margin-top: 0.8rem;
+  background: #f8f9fa;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.cor-document__terms ol {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.75rem 0 0;
+  padding-left: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  text-align: justify;
+}
+
+.cor-document__signatures {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  text-align: center;
+}
+
+.cor-document__signatures div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cor-document__signatures span {
+  width: 92%;
+  min-height: 1.4rem;
+  border-bottom: 1px solid #111;
+  padding-bottom: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.cor-document__signatures strong {
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.cor-document__footer {
+  margin-top: 2.2rem !important;
+  color: #555;
+  font-size: 0.65rem;
+  text-align: right;
+}
+
+@media (max-width: 42rem) {
+  .cor-document__page {
+    min-height: 0;
+    padding: 1rem;
+  }
+  .cor-document__facts,
+  .cor-document__assessment-grid,
+  .cor-document__signatures {
+    grid-template-columns: 1fr;
+  }
+  .cor-document__signatures {
+    gap: 2.7rem;
+  }
+  .cor-document table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  body[data-printing="document"] {
+    background: #fff !important;
+  }
+
+  /* Unconditionally hide all portal navigation, sidebars, buttons, dialog chrome, but PRESERVE cor document header */
+  body[data-printing="document"] header:not(.cor-document__header),
+  body[data-printing="document"] nav,
+  body[data-printing="document"] aside,
+  body[data-printing="document"] footer:not(.cor-document__signatures),
+  body[data-printing="document"] .print\:hidden,
+  body[data-printing="document"] [data-slot="dialog-overlay"],
+  body[data-printing="document"] [data-slot="dialog-header"],
+  body[data-printing="document"] [data-slot="dialog-close"],
+  body[data-printing="document"] [data-slot="dialog-footer"],
+  body[data-printing="document"] button,
+  body[data-printing="document"] [role="button"],
+  body[data-printing="document"] .portal-sidebar,
+  body[data-printing="document"] .portal-topbar,
+  body[data-printing="document"] .workspace-page__header,
+  body[data-printing="document"] .workspace-page__description,
+  body[data-printing="document"]
+    [data-slot="card"]:not(:has([data-print-region])) {
+    display: none !important;
+  }
+
+  /* Reset all outer containers so the print flow is 100% natural static flow */
+  body[data-printing="document"] #root,
+  body[data-printing="document"] main,
+  body[data-printing="document"] [data-slot="dialog-portal"],
+  body[data-printing="document"] [data-slot="dialog-content"],
+  body[data-printing="document"] [data-slot="card"],
+  body[data-printing="document"] [data-slot="card-content"],
+  body[data-printing="document"] [data-print-region],
+  body[data-printing="document"] .print-document {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    transform: none !important;
+  }
+
+  body[data-printing="document"] .print-document {
+    color: #000 !important;
+  }
+
+  body[data-printing="document"] .cor-document {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    color: #000 !important;
+  }
+
+  body[data-printing="document"] .cor-document__page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 4mm 6mm !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #000 !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  body[data-printing="document"] .cor-document__page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  body[data-printing="document"] .cor-document__header {
+    display: block !important;
+    text-align: center !important;
+    padding-bottom: 4pt !important;
+    border-bottom: 1.5pt solid #000 !important;
+    margin-bottom: 5pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__header p {
+    font-family: "Newsreader Variable", Georgia, serif !important;
+    font-size: 13.5pt !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    letter-spacing: 0.02em !important;
+    color: #000 !important;
+  }
+
+  body[data-printing="document"] .cor-document__header small {
+    display: block !important;
+    margin-top: 1.5pt !important;
+    font-size: 6.8pt !important;
+    color: #333 !important;
+  }
+
+  body[data-printing="document"] .cor-document__header h1,
+  body[data-printing="document"] .cor-document__header--compact h1 {
+    margin-top: 4pt !important;
+    font-size: 9.5pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.13em !important;
+    color: #000 !important;
+  }
+
+  body[data-printing="document"] .cor-document__facts {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 3pt 14pt !important;
+    margin-block: 4pt 5pt !important;
+    font-size: 7.5pt !important;
+    line-height: 1.28 !important;
+  }
+
+  body[data-printing="document"] .cor-document__facts dl {
+    display: grid !important;
+    grid-template-columns: 5.5rem 1fr !important;
+    gap: 1.5pt 4pt !important;
+    margin: 0 !important;
+  }
+
+  body[data-printing="document"] .cor-document__facts dt {
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 7.2pt !important;
+    color: #111 !important;
+  }
+
+  body[data-printing="document"] .cor-document__facts dd {
+    margin: 0 !important;
+    font-size: 7.5pt !important;
+    color: #000 !important;
+  }
+
+  body[data-printing="document"] .cor-document table {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 4pt !important;
+    font-size: 7.2pt !important;
+    line-height: 1.2 !important;
+  }
+
+  body[data-printing="document"] .cor-document th,
+  body[data-printing="document"] .cor-document td {
+    border: 0.75pt solid #222 !important;
+    padding: 2.2pt 3.5pt !important;
+    vertical-align: middle !important;
+  }
+
+  body[data-printing="document"] .cor-document th {
+    background: #e5e7eb !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-size: 7pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    text-align: left !important;
+    color: #000 !important;
+  }
+
+  body[data-printing="document"] .cor-document th:nth-child(1),
+  body[data-printing="document"] .cor-document td:nth-child(1),
+  body[data-printing="document"] .cor-document th:nth-child(3),
+  body[data-printing="document"] .cor-document td:nth-child(3),
+  body[data-printing="document"] .cor-document th:nth-child(4),
+  body[data-printing="document"] .cor-document td:nth-child(4),
+  body[data-printing="document"] .cor-document th:nth-child(5),
+  body[data-printing="document"] .cor-document td:nth-child(5) {
+    text-align: center !important;
+  }
+
+  body[data-printing="document"] .cor-document__total-row {
+    font-weight: 700 !important;
+    background: #f3f4f6 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body[data-printing="document"] .cor-document__admission {
+    margin-top: 5pt !important;
+    padding: 3.5pt 6pt !important;
+    border: 0.75pt solid #222 !important;
+    background: #fafafa !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body[data-printing="document"] .cor-document__admission h2 {
+    font-size: 7.2pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-align: center !important;
+    margin: 0 !important;
+  }
+
+  body[data-printing="document"] .cor-document__admission p {
+    margin-top: 2pt !important;
+    font-size: 7pt !important;
+    line-height: 1.3 !important;
+    text-align: justify !important;
+  }
+
+  body[data-printing="document"] .cor-document__assessment {
+    margin-top: 5pt !important;
+    border: 0.75pt solid #222 !important;
+    padding: 4pt 6pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__assessment h2 {
+    font-size: 7.2pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-align: center !important;
+    margin: 0 0 3.5pt 0 !important;
+    border-bottom: 0.5pt solid #999 !important;
+    padding-bottom: 2pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__assessment-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10pt !important;
+    font-size: 7pt !important;
+  }
+
+  body[data-printing="document"] .cor-document h3 {
+    margin: 0 0 2pt 0 !important;
+    font-size: 7pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    border-bottom: 0.5pt solid #ccc !important;
+    padding-bottom: 1.5pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__fee-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 4pt !important;
+    padding: 0.8pt 0 !important;
+    font-size: 6.8pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__fee-total {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-top: 2.5pt !important;
+    padding-top: 1.5pt !important;
+    border-top: 0.75pt solid #222 !important;
+    font-weight: 700 !important;
+    font-size: 7pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__grand-total {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 18rem !important;
+    margin: 4pt 0 0 auto !important;
+    padding: 2pt 0 !important;
+    border-top: 1.5pt solid #000 !important;
+    border-bottom: 2.5pt double #000 !important;
+    font-size: 8.2pt !important;
+    font-weight: 700 !important;
+  }
+
+  /* Page 2: Terms and Conditions Governing Withdrawal */
+  body[data-printing="document"] .cor-document__reference {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    padding: 3pt 5pt !important;
+    margin-top: 4pt !important;
+    margin-bottom: 5pt !important;
+    background: #f3f4f6 !important;
+    border: 0.75pt solid #333 !important;
+    font-size: 7.2pt !important;
+    font-weight: 600 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body[data-printing="document"] .cor-document__terms {
+    margin-top: 5pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__terms h2 {
+    font-size: 7.8pt !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 5pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__terms ol {
+    display: grid !important;
+    gap: 4pt !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+    font-size: 7.4pt !important;
+    line-height: 1.38 !important;
+    text-align: justify !important;
+  }
+
+  body[data-printing="document"] .cor-document__signatures {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12pt !important;
+    margin-top: 28pt !important;
+    text-align: center !important;
+  }
+
+  body[data-printing="document"] .cor-document__signatures div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2pt !important;
+  }
+
+  body[data-printing="document"] .cor-document__signatures span {
+    width: 90% !important;
+    min-height: 12pt !important;
+    border-bottom: 0.75pt solid #000 !important;
+    padding-bottom: 1.5pt !important;
+    font-size: 7.5pt !important;
+    font-weight: 600 !important;
+  }
+
+  body[data-printing="document"] .cor-document__signatures strong {
+    font-size: 6.2pt !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    text-transform: uppercase !important;
+  }
+
+  body[data-printing="document"] .cor-document__footer {
+    margin-top: 18pt !important;
+    font-size: 6.2pt !important;
+    color: #555 !important;
+    text-align: right !important;
+  }
+}
+
+/* GRC institutional refresh */
+.grc-brand {
+  display: inline-flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.grc-brand img {
+  display: block;
+  width: min(100%, 12.8rem);
+  height: auto;
+}
+
+.grc-brand__system {
+  color: currentcolor;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.grc-brand--compact img {
+  width: 10.75rem;
+}
+
+.public-masthead {
+  min-height: 6.25rem;
+  background:
+    radial-gradient(
+      circle at 82% 0%,
+      rgb(255 255 255 / 13%),
+      transparent 18rem
+    ),
+    linear-gradient(112deg, #65000a, var(--primary) 56%, #8e0619);
+  border-bottom: 0;
+}
+
+.public-masthead .institutional-identity {
+  color: var(--primary-foreground);
+}
+
+.public-masthead .system-name {
+  color: rgb(255 255 255 / 75%);
+}
+
+.public-navigation a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgb(255 255 255 / 82%);
+}
+
+.public-navigation a:hover,
+.public-navigation a:focus-visible {
+  color: var(--primary-foreground);
+}
+
+.public-masthead__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.public-masthead__actions [data-variant="outline"],
+.public-masthead .public-mobile-trigger {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 9%);
+  border-color: rgb(255 255 255 / 28%);
+}
+
+.public-mobile-trigger {
+  display: none;
+}
+
+.public-mobile-sheet {
+  overflow-y: auto;
+  color: var(--primary-foreground);
+  background:
+    radial-gradient(
+      circle at 12% 100%,
+      rgb(255 255 255 / 11%),
+      transparent 18rem
+    ),
+    linear-gradient(180deg, #65000a, var(--primary) 56%, #8e0619);
+  border-right: 0;
+}
+
+.public-mobile-sheet [data-slot="sheet-header"] {
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
+}
+
+.public-mobile-sheet [data-slot="sheet-title"],
+.public-mobile-sheet [data-slot="sheet-close"] {
+  color: var(--primary-foreground);
+}
+
+.public-mobile-sheet [data-slot="sheet-description"] {
+  color: rgb(255 255 255 / 76%);
+}
+
+.public-mobile-sheet__body {
+  padding: 0.5rem 1rem 1rem;
+}
+
+.public-navigation--mobile {
+  align-items: stretch;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.public-navigation--mobile a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.75rem;
+  color: rgb(255 255 255 / 85%);
+  border-radius: var(--radius);
+  border-left: 0.18rem solid transparent;
+}
+
+.public-navigation--mobile a:hover,
+.public-navigation--mobile a:focus-visible {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 12%);
+  border-left-color: var(--institutional-gold);
+}
+
+.landing-hero {
+  overflow: hidden;
+  color: var(--primary-foreground);
+  background:
+    radial-gradient(
+      circle at 84% 11%,
+      rgb(255 255 255 / 17%),
+      transparent 16rem
+    ),
+    radial-gradient(
+      circle at 52% 115%,
+      rgb(212 175 55 / 26%),
+      transparent 28rem
+    ),
+    linear-gradient(135deg, #4d0007, #920818 53%, #bd0b25);
+}
+
+.landing-hero::before {
+  background: var(--institutional-gold);
+}
+
+.landing-tagline {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: #ffe496;
+  font-size: 0.69rem;
+  font-weight: 760;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+}
+
+.landing-tagline svg {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+
+.landing-hero__summary,
+.landing-boundary {
+  color: rgb(255 255 255 / 84%);
+}
+
+.landing-hero [data-variant="outline"] {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 8%);
+  border-color: rgb(255 255 255 / 38%);
+}
+
+.landing-hero [data-variant="outline"]:hover {
+  color: var(--foreground);
+  background: var(--primary-foreground);
+}
+
+.landing-hero__panel {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--primary-foreground);
+  background: rgb(50 0 5 / 42%);
+  border: 1px solid rgb(255 255 255 / 23%);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: 1rem 1rem 0 rgb(47 0 5 / 27%);
+  backdrop-filter: blur(0.6rem);
+}
+
+.landing-hero__panel > svg {
+  width: 2.2rem;
+  height: 2.2rem;
+  color: #ffe496;
+}
+
+.landing-hero__panel p {
+  margin: 0;
+  color: #ffe496;
+  font-size: 0.7rem;
+  font-weight: 720;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.landing-hero__panel strong {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.landing-hero__panel span {
+  color: rgb(255 255 255 / 82%);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.landing-values-section,
+.academics-section,
+.student-services-section {
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 6vw, 6.5rem);
+}
+
+.landing-values-section {
+  background: color-mix(in srgb, var(--card) 87%, #fff6f7);
+}
+
+.landing-values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.landing-value-card {
+  min-height: 14rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--card);
+  border-top: 0.28rem solid var(--primary);
+  border-radius: calc(var(--radius) * 1.25);
+  box-shadow: 0 1rem 2.25rem color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.landing-value-card:last-child {
+  background: var(--ink);
+  border-top-color: var(--institutional-gold);
+}
+
+.landing-value-card:last-child .eyebrow,
+.landing-value-card:last-child .landing-value-card__statement {
+  color: var(--primary-foreground);
+}
+
+.landing-value-card:last-child .eyebrow {
+  color: #ffe496;
+}
+
+.landing-value-card__statement {
+  max-width: 24ch;
+  margin: 1.5rem 0 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.7rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.academics-section {
+  border-block: 1px solid var(--border);
+}
+
+.academics-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.academics-list a {
+  display: grid;
+  min-height: 12rem;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.5rem;
+  padding: 1.25rem;
+  color: var(--foreground);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.1);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-house),
+    color var(--duration-fast) var(--ease-house),
+    transform var(--duration-fast) var(--ease-house);
+}
+
+.academics-list a:hover,
+.academics-list a:focus-visible {
+  color: var(--primary-foreground);
+  background: var(--primary);
+  transform: translateY(-0.18rem);
+}
+
+.academics-list span {
+  color: var(--primary);
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1rem;
+}
+
+.academics-list a:hover span,
+.academics-list a:focus-visible span {
+  color: #ffe496;
+}
+
+.academics-list strong {
+  align-self: center;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 560;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.academics-list svg {
+  justify-self: end;
+  width: 1rem;
+  height: 1rem;
+}
+
+.student-services-section {
+  background: color-mix(in srgb, var(--primary) 4%, var(--background));
+}
+
+.student-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.student-service-card {
+  min-height: 15rem;
+}
+
+.student-service-card [data-slot="card-header"] > svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-bottom: 1.75rem;
+  color: var(--primary);
+}
+
+.student-service-card [data-slot="card-title"] {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 540;
+}
+
+.student-service-card [data-slot="card-description"] {
+  line-height: 1.6;
+}
+
+.student-service-card [data-slot="card-content"] {
+  margin-top: auto;
+}
+
+.student-service-card a,
+.public-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.student-service-card a:hover,
+.public-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.public-footer {
+  color: rgb(255 255 255 / 76%);
+  background: var(--ink);
+  border-top: 0.25rem solid var(--primary);
+}
+
+.public-footer strong,
+.public-footer a {
+  color: var(--primary-foreground);
+}
+
+.public-footer div:last-child {
+  gap: 0.65rem;
+}
+
+.portal-sidebar,
+.portal-mobile-sheet {
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  background:
+    radial-gradient(
+      circle at 110% 5%,
+      rgb(255 255 255 / 14%),
+      transparent 15rem
+    ),
+    linear-gradient(180deg, #6f000b, var(--primary) 56%, #870615);
+  border-right: 0;
+}
+
+.portal-mobile-sheet [data-slot="sheet-title"],
+.portal-mobile-sheet [data-slot="sheet-close"] {
+  color: var(--primary-foreground);
+}
+
+.portal-mobile-sheet [data-slot="sheet-description"] {
+  color: rgb(255 255 255 / 76%);
+}
+
+.portal-brand {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgb(53 0 6 / 23%);
+  border: 1px solid rgb(255 255 255 / 19%);
+  border-radius: calc(var(--radius) * 1.15);
+}
+
+.portal-brand .grc-brand--compact img {
+  width: 11rem;
+}
+
+.portal-sidebar [data-slot="badge"],
+.portal-mobile-sheet [data-slot="badge"] {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 12%);
+  border-color: rgb(255 255 255 / 20%);
+}
+
+.portal-nav-link,
+.portal-sidebar__footer > p,
+.portal-profile span {
+  color: rgb(255 255 255 / 76%);
+}
+
+.portal-nav-link:hover {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 12%);
+}
+
+.portal-nav-link--active {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 18%);
+  border-left-color: var(--institutional-gold);
+}
+
+.portal-sidebar .portal-navigation,
+.portal-mobile-sheet .portal-navigation {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 30%) transparent;
+}
+
+.portal-sidebar .portal-navigation::-webkit-scrollbar,
+.portal-mobile-sheet .portal-navigation::-webkit-scrollbar {
+  width: 0.35rem;
+}
+
+.portal-sidebar .portal-navigation::-webkit-scrollbar-track,
+.portal-mobile-sheet .portal-navigation::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.portal-sidebar .portal-navigation::-webkit-scrollbar-thumb,
+.portal-mobile-sheet .portal-navigation::-webkit-scrollbar-thumb {
+  background-color: rgb(255 255 255 / 30%);
+  border-radius: 999px;
+}
+
+.portal-sidebar .portal-navigation::-webkit-scrollbar-thumb:hover,
+.portal-mobile-sheet .portal-navigation::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(255 255 255 / 48%);
+}
+
+.portal-sidebar__footer [data-slot="separator"] {
+  background: rgb(255 255 255 / 20%);
+}
+
+/* Foldable sidebar (stakeholder Doc 14). The toggle sits beside the badge; the
+   rail itself only exists on desktop, because at <= 64rem the sidebar is
+   replaced by the hamburger drawer. */
+.portal-sidebar__toolbar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.portal-sidebar__toggle {
+  margin-left: auto;
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 12%);
+  border-color: rgb(255 255 255 / 20%);
+  transition:
+    background-color 150ms ease,
+    transform 100ms ease;
+}
+
+.portal-sidebar__toggle:hover {
+  color: var(--primary-foreground);
+  background: rgb(255 255 255 / 20%);
+}
+
+.portal-sidebar__toggle:active {
+  background: rgb(255 255 255 / 26%);
+  transform: scale(0.94);
+}
+
+.portal-sidebar__toggle svg {
+  transition: transform 180ms ease;
+}
+
+@media (min-width: 64.01rem) {
+  .portal-app[data-sidebar="collapsed"] {
+    grid-template-columns: 4.75rem minmax(0, 1fr);
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-sidebar {
+    align-items: center;
+    padding-inline: 0.6rem;
+    gap: 1.25rem;
+    overflow: hidden;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-sidebar > div:first-child {
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-sidebar__toolbar {
+    justify-content: center;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-sidebar__toggle {
+    margin-left: 0;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-navigation {
+    width: 100%;
+    min-height: 0;
+    flex: 1 1 0%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-nav-link {
+    position: relative;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0;
+    padding-inline: 0;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-nav-link:hover,
+  .portal-app[data-sidebar="collapsed"] .portal-nav-link:focus-visible {
+    z-index: 10;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-nav-link svg {
+    position: relative;
+    z-index: 2;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-nav-link > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  .portal-app[data-sidebar="collapsed"]
+    .portal-nav-link[data-attention]::after {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.7rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--institutional-gold);
+    border-radius: 999px;
+    content: "";
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-sidebar__footer {
+    align-items: center;
+    flex-shrink: 0;
+    margin-top: auto;
+    width: 100%;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-sidebar__footer > p,
+  .portal-app[data-sidebar="collapsed"]
+    .portal-sidebar__footer
+    [data-slot="separator"],
+  .portal-app[data-sidebar="collapsed"] .portal-profile > div:last-child {
+    display: none;
+  }
+
+  .portal-app[data-sidebar="collapsed"] .portal-profile {
+    grid-template-columns: auto;
+  }
+}
+
+.portal-collapsed-pill {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  max-width: 18rem;
+  padding: 0;
+  background: #870615;
+  border-radius: var(--radius);
+  color: #ffffff;
+  box-shadow: 0 8px 20px -6px rgb(0 0 0 / 35%);
+  font-size: 0.72rem;
+  font-weight: 620;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: portalPillWipeOpen 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.portal-collapsed-pill__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+.portal-collapsed-pill__icon svg {
+  width: 1rem;
+  height: 1rem;
+  color: #ffffff;
+}
+
+.portal-collapsed-pill__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 0.9rem;
+}
+
+@keyframes portalPillWipeOpen {
+  from {
+    clip-path: inset(0 100% 0 0 round var(--radius));
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0 round var(--radius));
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-collapsed-pill {
+    animation: none;
+    clip-path: inset(0 0 0 0 round var(--radius));
+    opacity: 1;
+  }
+}
+
+@media (min-width: 64.01rem) and (prefers-reduced-motion: no-preference) {
+  .portal-app {
+    transition: grid-template-columns 180ms ease;
+  }
+}
+
+/* Stacked rows for wide tables on phones (stakeholder Doc 13: not everything at
+   once, no sideways scrolling). Opt in with `data-stack-mobile` on the <table>
+   and give each <td> a `data-label` (its column heading); `data-stack="full"`
+   makes a cell span the whole row. The DOM is untouched, so tests and screen
+   readers still get a real table, and `screen` keeps print on the true table. */
+@media screen and (max-width: 47.99rem) {
+  table[data-stack-mobile] thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  table[data-stack-mobile],
+  table[data-stack-mobile] tbody,
+  table[data-stack-mobile] tfoot,
+  table[data-stack-mobile] caption {
+    display: block;
+    width: 100%;
+  }
+
+  table[data-stack-mobile] caption {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    white-space: normal;
+  }
+
+  table[data-stack-mobile] tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 0.75rem;
+    padding: 0.75rem;
+  }
+
+  table[data-stack-mobile] td {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  table[data-stack-mobile] td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.1rem;
+    color: var(--muted-foreground);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  table[data-stack-mobile] td[data-stack="full"] {
+    grid-column: 1 / -1;
+  }
+
+  table[data-stack-mobile] td:empty {
+    display: none;
+  }
+}
+
+/* A table that cannot fit its box is stacked (decided and labelled by `fitTableToContainer`, which sets
+   `data-stacked` on the table's container and a `data-label` on every cell): each row becomes a small block of
+   label / value pairs, so no table in the system needs sideways scrolling. `screen` only, so print keeps the
+   true table. A cell with `data-stack="full"` (actions, or one spanning the row) uses the whole block. */
+@media screen {
+  [data-slot="table-container"][data-stacked="true"] {
+    overflow-x: visible;
+  }
+
+  [data-slot="table-container"][data-stacked="true"] thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  [data-slot="table-container"][data-stacked="true"] table,
+  [data-slot="table-container"][data-stacked="true"] tbody,
+  [data-slot="table-container"][data-stacked="true"] tfoot,
+  [data-slot="table-container"][data-stacked="true"] caption {
+    display: block;
+    width: 100%;
+    padding-right: 0;
+  }
+
+  [data-slot="table-container"][data-stacked="true"] caption {
+    text-align: left;
+    padding: 0.5rem 0;
+    white-space: normal;
+  }
+
+  [data-slot="table-container"][data-stacked="true"] tr {
+    display: grid;
+    /* As many label / value pairs per row as fit: two on a phone, more on a tablet or a narrow laptop. */
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.5rem 1rem;
+    padding: 0.85rem 0.25rem;
+  }
+
+  [data-slot="table-container"][data-stacked="true"] td,
+  [data-slot="table-container"][data-stacked="true"] tbody th,
+  [data-slot="table-container"][data-stacked="true"] tfoot th {
+    display: block;
+    min-width: 0;
+    height: auto;
+    padding: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  [data-slot="table-container"][data-stacked="true"]
+    td[data-label]:not([data-label=""])::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.15rem;
+    color: var(--muted-foreground);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  [data-slot="table-container"][data-stacked="true"] td[data-stack="full"] {
+    grid-column: 1 / -1;
+  }
+
+  [data-slot="table-container"][data-stacked="true"] td:empty {
+    display: none;
+  }
+}
+
+.grc-connect {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.75rem);
+}
+
+.grc-connect-hero {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.65fr) minmax(0, 1.35fr) minmax(
+      13rem,
+      0.55fr
+    );
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: end;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  color: var(--primary-foreground);
+  background:
+    radial-gradient(
+      circle at 90% 8%,
+      rgb(255 255 255 / 17%),
+      transparent 16rem
+    ),
+    linear-gradient(125deg, #580008, var(--primary) 55%, #9a071a);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: 0 1.25rem 2.75rem
+    color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.grc-connect-hero__identity {
+  display: grid;
+  gap: 1rem;
+}
+
+.grc-connect-hero__identity p,
+.grc-connect-hero__action > p {
+  margin: 0;
+  color: #ffe496;
+  font-size: 0.64rem;
+  font-weight: 730;
+  letter-spacing: 0.09em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.grc-connect-hero__copy h1 {
+  margin: 0.8rem 0 0.45rem;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-weight: 470;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+
+.grc-connect-hero__copy p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 640;
+}
+
+.grc-connect-hero__copy span {
+  display: block;
+  max-width: 37rem;
+  margin-top: 0.6rem;
+  color: rgb(255 255 255 / 80%);
+  font-size: 0.87rem;
+  line-height: 1.55;
+}
+
+.grc-connect-hero__action {
+  display: grid;
+  gap: 0.8rem;
+  justify-items: start;
+  padding: 1rem;
+  background: rgb(57 0 5 / 30%);
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: var(--radius);
+}
+
+.grc-connect-hero__action strong {
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 560;
+}
+
+.portal-module-card--primary {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  box-shadow: 0 0.65rem 1.5rem
+    color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.portal-planned-capabilities {
+  padding-top: clamp(2rem, 4vw, 3.75rem);
+  border-top: 1px solid var(--border);
+}
+
+.portal-module-card--planned {
+  min-height: 0;
+  background: color-mix(in srgb, var(--muted) 56%, var(--card));
+  border-style: dashed;
+}
+
+.portal-module-card--planned:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+@media (max-width: 68rem) {
+  .academics-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grc-connect-hero {
+    grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 1fr);
+  }
+
+  .grc-connect-hero__action {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .grc-connect-hero__action > p {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 45rem) {
+  .public-masthead {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    min-height: 5.25rem;
+  }
+
+  .public-masthead .grc-brand img {
+    width: min(100%, 10.5rem);
+  }
+
+  .public-masthead .grc-brand__system {
+    display: none;
+  }
+
+  .public-navigation:not(.public-navigation--mobile) {
+    display: none;
+  }
+
+  .public-mobile-trigger {
+    display: inline-flex;
+  }
+
+  .public-masthead__actions [data-slot="button"]:last-child {
+    min-height: 2.75rem;
+    padding-inline: 0.75rem;
+  }
+
+  .landing-hero {
+    gap: 2.5rem;
+    min-height: 0;
+  }
+
+  .landing-hero h1 {
+    font-size: clamp(3.25rem, 16vw, 5rem);
+  }
+
+  .landing-tagline {
+    align-items: flex-start;
+  }
+
+  .landing-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .landing-actions [data-slot="button"] {
+    width: 100%;
+  }
+
+  .landing-hero__panel {
+    box-shadow: 0.55rem 0.55rem 0 rgb(47 0 5 / 27%);
+  }
+
+  .landing-values-grid,
+  .student-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .academics-list {
+    grid-template-columns: 1fr;
+  }
+
+  .academics-list a {
+    min-height: 6rem;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .academics-list strong {
+    font-size: 1.2rem;
+  }
+
+  .public-footer div:last-child {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .portal-brand .grc-brand--compact img {
+    width: 10.5rem;
+  }
+
+  .grc-connect-hero {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding: 1.4rem;
+    border-radius: var(--radius);
+  }
+
+  .grc-connect-hero__action {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .grc-connect-hero__action > p {
+    grid-column: auto;
+  }
+
+  .grc-connect-hero__action [data-slot="button"] {
+    width: 100%;
+  }
+}
+
+/* Keep the public experience edge-to-edge on wide screens. The page's own
+   sections retain their existing content padding, but the former 96rem shell
+   cap no longer leaves unrelated white gutters beside the GRC hero. */
+.institutional-shell {
+  width: 100%;
+  margin-inline: 0;
+  border-inline: 0;
+  box-shadow: none;
+}
+
+/* Button's shared `white-space: nowrap` is correct for compact controls, but
+   the Faculty start card can be narrower than this label. Make this one
+   primary action fill, and wrap within, its own card instead of overflowing it. */
+.grc-connect-hero__action {
+  min-width: 0;
+}
+
+.grc-connect-hero__action [data-slot="button"] {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 2.75rem;
+  height: auto;
+  justify-content: space-between;
+  white-space: normal;
+  text-align: left;
+}
+/* Native range controls keep the year window usable by mouse, touch, and keyboard. */
+.school-year-range-thumb::-webkit-slider-thumb {
+  pointer-events: auto;
+  appearance: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid var(--card);
+  border-radius: 9999px;
+  background: var(--primary);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 55%, transparent);
+  cursor: grab;
+}
+
+.school-year-range-thumb::-moz-range-thumb {
+  pointer-events: auto;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid var(--card);
+  border-radius: 9999px;
+  background: var(--primary);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 55%, transparent);
+  cursor: grab;
+}
+
+/* Student queue panel: a shared institutional board that stays legible at
+   portal scale and gives kiosk mode decisive, touch-oriented numerals. */
+.queue-live-panel {
+  border: 1px solid var(--border);
+}
+
+.queue-live-panel__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.queue-live-panel__ticket,
+.queue-live-panel__serving {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.queue-live-panel__label {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.queue-live-panel__ticket-number,
+.queue-live-panel__serving-number {
+  min-width: 0;
+  margin: 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  font-weight: 580;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+  overflow-wrap: anywhere;
+}
+
+.queue-live-panel__serving-number {
+  color: var(--primary);
+}
+
+/* A real queue number is a display value. Unavailable-state copy needs a
+   readable status scale instead, especially beside a touch-oriented kiosk. */
+.queue-live-panel__ticket-number--status,
+.queue-live-panel__serving-number--status {
+  font-family: "IBM Plex Sans Variable", ui-sans-serif, sans-serif;
+  font-size: clamp(1.35rem, 3.5vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Student-facing unavailable states are orientation copy, not a queue-board
+   display number. Keep them calm and compact, and reserve red numerals for a
+   real ticket being served. Kiosk mode retains its high-visibility treatment. */
+.queue-live-panel:not(.queue-live-panel--kiosk)
+  .queue-live-panel__ticket--unavailable,
+.queue-live-panel:not(.queue-live-panel--kiosk)
+  .queue-live-panel__serving--unavailable {
+  justify-content: center;
+  min-height: 8.25rem;
+  background: color-mix(in srgb, var(--card) 74%, var(--muted));
+}
+
+.queue-live-panel:not(.queue-live-panel--kiosk)
+  .queue-live-panel__ticket--awaiting-approval {
+  background: color-mix(in srgb, var(--primary) 5%, var(--card));
+  border-color: color-mix(in srgb, var(--primary) 26%, var(--border));
+}
+
+.queue-live-panel:not(.queue-live-panel--kiosk)
+  .queue-live-panel__ticket-number--status,
+.queue-live-panel:not(.queue-live-panel--kiosk)
+  .queue-live-panel__serving-number--status {
+  color: var(--foreground);
+  font-size: clamp(1.15rem, 2.2vw, 1.65rem);
+  line-height: 1.15;
+}
+
+.queue-live-panel__approval-status {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin: 0;
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.queue-live-panel__approval-status svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.queue-live-panel__upcoming-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.queue-live-panel__upcoming-list li {
+  padding: 0.3rem 0.6rem;
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+
+.queue-live-panel__footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.queue-live-panel__keep-open {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.queue-live-panel--compact .queue-live-panel__facts {
+  gap: 0.75rem;
+}
+
+.queue-live-panel--compact .queue-live-panel__ticket,
+.queue-live-panel--compact .queue-live-panel__serving {
+  padding: 0.75rem;
+}
+
+.queue-live-panel--compact .queue-live-panel__ticket-number,
+.queue-live-panel--compact .queue-live-panel__serving-number {
+  font-size: clamp(1.5rem, 7vw, 2.1rem);
+}
+
+.queue-live-panel--kiosk {
+  --card-spacing: --spacing(6);
+}
+
+.queue-live-panel--kiosk .queue-live-panel__ticket-number,
+.queue-live-panel--kiosk .queue-live-panel__serving-number {
+  font-size: clamp(3.25rem, 11vw, 7.5rem);
+}
+
+.queue-live-panel--kiosk .queue-live-panel__ticket-number--status,
+.queue-live-panel--kiosk .queue-live-panel__serving-number--status {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.queue-live-panel--kiosk .queue-live-panel__footer [data-slot="button"] {
+  min-height: 3rem;
+}
+
+/* The background and foreground shift is persistent, high-contrast call
+   state; motion adds emphasis only for people who have not opted out. */
+.queue-live-panel--called {
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.queue-live-panel--called [data-slot="card-description"] {
+  color: var(--primary-foreground);
+}
+
+.queue-live-panel--called .queue-live-panel__label {
+  color: var(--primary-foreground);
+}
+
+.queue-live-panel--called .queue-live-panel__ticket,
+.queue-live-panel--called .queue-live-panel__serving,
+.queue-live-panel--called [data-slot="card-footer"] {
+  color: var(--foreground);
+  background: var(--primary-foreground);
+  border-color: var(--primary-foreground);
+}
+
+.queue-live-panel--called .queue-live-panel__call-alert {
+  color: var(--foreground);
+  background: var(--primary-foreground);
+  border-color: var(--primary-foreground);
+}
+
+.queue-live-panel--called .queue-live-panel__ticket .queue-live-panel__label,
+.queue-live-panel--called .queue-live-panel__serving .queue-live-panel__label,
+.queue-live-panel--called [data-slot="card-footer"] p,
+.queue-live-panel--called
+  .queue-live-panel__call-alert
+  [data-slot="alert-description"] {
+  color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .queue-live-panel--called {
+    animation: queue-call-emphasis 1.1s var(--ease-house) 3;
+  }
+
+  @keyframes queue-call-emphasis {
+    50% {
+      opacity: 0.96;
+      transform: translateY(-0.1rem);
+    }
+  }
+}
+
+@media (max-width: 40rem) {
+  .queue-live-panel__facts,
+  .queue-live-panel__footer {
+    grid-template-columns: 1fr;
+  }
+
+  .queue-live-panel__footer [data-slot="button"] {
+    width: 100%;
+  }
+}
+
+/* A dedicated public-facing device surface: it shares the institutional
+   palette with the portal but deliberately has no portal navigation or
+   persistent Student identity. */
+.queue-kiosk-shell {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1rem, 4vw, 4rem);
+  color: var(--foreground);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary) 7%, var(--background)),
+      var(--background) 45%
+    ),
+    var(--background);
+}
+
+.queue-kiosk-header {
+  display: flex;
+  max-width: 70rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-inline: auto;
+  width: 100%;
+  padding-bottom: 1rem;
+  border-bottom: 0.25rem solid var(--primary);
+}
+
+.queue-kiosk-header h1 {
+  margin: 0.15rem 0 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 540;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.queue-kiosk-eyebrow {
+  margin: 0;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 760;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.queue-kiosk-card,
+.queue-kiosk-student {
+  width: min(100%, 48rem);
+  margin-inline: auto;
+}
+
+.queue-kiosk-student {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.queue-kiosk-form-error {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  color: var(--destructive);
+  background: color-mix(in srgb, var(--destructive) 9%, var(--card));
+  border: 1px solid color-mix(in srgb, var(--destructive) 36%, var(--border));
+  border-radius: var(--radius);
+}
+
+.queue-kiosk-submit,
+.queue-kiosk-claim,
+.queue-kiosk-done,
+.queue-kiosk-header [data-slot="button"] {
+  min-height: 2.75rem;
+}
+
+.queue-kiosk-submit,
+.queue-kiosk-claim,
+.queue-kiosk-done {
+  width: 100%;
+}
+
+.queue-kiosk-autoclear {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--primary) 7%, var(--card));
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, var(--border));
+  border-radius: var(--radius);
+}
+
+.queue-kiosk-autoclear p {
+  margin: 0;
+}
+
+.queue-kiosk-autoclear__bar {
+  display: block;
+  width: 100%;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--primary);
+  transform-origin: left;
+  animation: queue-kiosk-autoclear var(--autoclear-seconds, 5s) linear forwards;
+}
+
+@keyframes queue-kiosk-autoclear {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+.queue-kiosk-restoring {
+  width: fit-content;
+  margin: auto;
+  padding: 1rem 1.25rem;
+  color: var(--muted-foreground);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.queue-kiosk-shell :focus-visible {
+  outline: 0.2rem solid var(--ring);
+  outline-offset: 0.22rem;
+}
+
+@media (max-width: 40rem) {
+  .queue-kiosk-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .queue-kiosk-header [data-slot="button"] {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .queue-kiosk-shell *,
+  .queue-kiosk-shell *::before,
+  .queue-kiosk-shell *::after {
+    scroll-behavior: auto;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Queue Kiosk: the Welcome screen that opens before the device sign-in. It looks nothing like the
+   Student sign-in card that follows on the same device. */
+.queue-kiosk-welcome {
+  position: relative;
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(1.5rem, 6vw, 4rem);
+  color: #fff;
+  text-align: center;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    color-mix(in srgb, var(--primary) 78%, #fff 22%),
+    var(--primary) 45%,
+    color-mix(in srgb, var(--primary) 55%, #000) 100%
+  );
+}
+
+.queue-kiosk-welcome__glow {
+  position: absolute;
+  inset: auto -20% -35% -20%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(255 255 255 / 0.28),
+    transparent
+  );
+  filter: blur(2rem);
+  animation: queue-kiosk-glow 5s ease-in-out infinite alternate;
+}
+
+.queue-kiosk-welcome__content {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+.queue-kiosk-welcome__eyebrow {
+  margin: 0;
+  font-size: clamp(0.75rem, 1.6vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: queue-kiosk-rise 700ms 100ms cubic-bezier(0.2, 0.8, 0.2, 1)
+    forwards;
+}
+
+.queue-kiosk-welcome__title {
+  margin: 0;
+  font-family: "Newsreader Variable", Georgia, serif;
+  font-size: clamp(3.5rem, 15vw, 10rem);
+  font-weight: 560;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.queue-kiosk-welcome__title span {
+  display: inline-block;
+  opacity: 0;
+  animation: queue-kiosk-letter 800ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.queue-kiosk-welcome__subtitle {
+  margin: 0;
+  font-size: clamp(1.1rem, 3vw, 2rem);
+  font-weight: 500;
+  opacity: 0;
+  animation: queue-kiosk-rise 700ms 900ms cubic-bezier(0.2, 0.8, 0.2, 1)
+    forwards;
+}
+
+.queue-kiosk-welcome__rule {
+  display: block;
+  width: 0;
+  height: 0.2rem;
+  border-radius: 999px;
+  background: #fff;
+  animation: queue-kiosk-rule 900ms 1100ms cubic-bezier(0.2, 0.8, 0.2, 1)
+    forwards;
+}
+
+.queue-kiosk-welcome__skip {
+  margin-top: 1.25rem;
+  padding: 0.6rem 1.4rem;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(255 255 255 / 0.55);
+  border-radius: 999px;
+  opacity: 0;
+  animation: queue-kiosk-rise 600ms 1700ms ease-out forwards;
+}
+
+.queue-kiosk-welcome__skip:hover {
+  background: rgb(255 255 255 / 0.22);
+}
+
+.queue-kiosk-welcome :focus-visible {
+  outline: 0.2rem solid #fff;
+  outline-offset: 0.25rem;
+}
+
+@keyframes queue-kiosk-letter {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em) scale(0.92);
+    filter: blur(0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes queue-kiosk-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 0.92;
+    transform: none;
+  }
+}
+
+@keyframes queue-kiosk-rule {
+  from {
+    width: 0;
+  }
+  to {
+    width: min(14rem, 50vw);
+  }
+}
+
+@keyframes queue-kiosk-glow {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(-4%) scale(1.08);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .queue-kiosk-welcome__glow,
+  .queue-kiosk-welcome__eyebrow,
+  .queue-kiosk-welcome__title span,
+  .queue-kiosk-welcome__subtitle,
+  .queue-kiosk-welcome__rule,
+  .queue-kiosk-welcome__skip {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .queue-kiosk-welcome__rule {
+    width: min(14rem, 50vw);
+  }
+}
+
+/* The user guide link in the phone/tablet drawer (desktop has it in the top bar). */
+.portal-mobile-guide {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  color: var(--primary-foreground);
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.portal-mobile-guide:hover,
+.portal-mobile-guide:focus-visible {
+  background: rgb(255 255 255 / 12%);
+}
+
+.portal-mobile-guide svg {
+  width: 1rem;
+  height: 1rem;
+}
